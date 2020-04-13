@@ -5,7 +5,10 @@
 // Includes with Test-Purposes:
 //
 #include "test_functions.hpp"
-
+//
+// File Management:
+//
+#include "fileManager.h"
 
 
 //// Constructor 0: Empty default
@@ -4818,5 +4821,200 @@ std::string CardManager::NumberToString(T Number)
 
 /***END**************Miscelaneous**********************/
 
-  /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
 
+///***************FILE MANAGER*****************/
+//
+///*
+//	How to use:
+//
+//	// Name of the File to Write the Output to:
+//	//
+//	const string fileName = "ListAllTicTacToeGames.txt";
+//
+//	//// Main Procedure call: Solution to the Question asked:
+//	////
+//	ListAllTicTacToeGames( fileName );
+//*/
+//
+///**
+// * Draws the Header of the Board.
+//**/
+//void DrawBoardHeader(ofstream &myfile)
+//{
+//
+//	myfile << "  N    X 0 X 0 X 0 X 0 X Win\n";
+//
+//}//End Procedure
+//
+///**
+//* (Final) Answer to the Test, Question number 3: MICHI  (a.k.a.: TIC TAC TOE).
+//*/
+//void ListAllTicTacToeGames(const string &fileName)
+//{
+//
+//	// Validation: Try to Open an Existing file; or CREATE it if it does ot exist:
+//	//
+//	bool tryToWriteToFile = OpenFileForWritingOrCreateIt(fileName);
+//
+//	// Flag Variable to know if the opening file process was successful in the end.
+//	//...if it was not: The Output will be displayed on the CMD Console:
+//	//
+//	bool printFullOutputToConsole = false;
+//
+//	/***********************************/
+//
+//	// Variables Initialization:
+//
+//	// Necessary Variables:
+//	//
+//	char player = _MY_PLAYER_X;
+//
+//	// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
+//	//
+//	int _myArrayMoveBoardPositions[_MY_MOVES_ORDER_ARRAY_SIZE];
+//	//
+//	// Initialization:
+//	//
+//	InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
+//	//
+//	// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
+//	//
+//	char _myArrayPlayerWhoMoved[_MY_MOVES_ORDER_ARRAY_SIZE];
+//	//
+//	// Initialization:
+//	//
+//	InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
+//	//
+//	// Moves Number: For easy Reference:
+//	//
+//	int _myMovesOrder = 1;
+//	//
+//	// Initilize Main Board-Array:
+//	//
+//	InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
+//
+//	/***********************************/
+//
+//	// Check to see if we can Open, Create a FIle... or not.
+//	//
+//	if (tryToWriteToFile)
+//	{
+//
+//		// Declare & Initialize: File Object
+//		//
+//		ofstream myfile(fileName);
+//		//
+//		// Validation:
+//		//
+//		if (OpenFileForWritingNotClosing(myfile))
+//		{
+//
+//			// Tell the player where the File will be saved:
+//			//
+//			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
+//			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
+//			//
+//			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
+//
+//			// Draw Header of Board:
+//			//
+//			DrawBoardHeader(myfile);
+//
+//			// This is the ANSWER TO QUESTION # 3:
+//			//
+//			CalculateAllTicTacToeGamesInATextFile(myfile, _myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
+//			//
+//			// Print to Console some feedback:
+//			//
+//			std::cout << "\n\n***************************************\n\nThere are [ " << (nWinO + nWinX + nDraw) << " ]\npossible games (excluding symmetry), of which \n  * O wins " << nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw << " are drawn.";
+//
+//
+//			// Close the Text File:
+//			//
+//			CloseFileForWriting(myfile);
+//
+//		}//End if
+//		else
+//		{
+//			// Could not open file:
+//			//
+//			printFullOutputToConsole = true;
+//			std::cout << "\n" << "\n->\nCannot open file, file does not exist.\nThere is an I/O issue........";
+//
+//		}//End else
+//
+//	}
+//	else
+//	{
+//		// IT COULD NOT CREATE THE FILE.
+//		//
+//		printFullOutputToConsole = true;
+//		std::cout << "\n" << "\n->\nCannot Create the file.\nThere is an I/O issue........";
+//
+//	}//End else
+//
+//
+//	// Last correction: if the file could not be opened: Print the Results to the Console:
+//	//
+//	if (printFullOutputToConsole)
+//	{
+//
+//		/********************************/
+//
+//		// Variables reinitialization:
+//		// Necessary Variables:
+//		//
+//		nWinO = 0, nWinX = 0, nDraw = 0;
+//		//
+//		player = _MY_PLAYER_X;
+//
+//		// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
+//		//
+//		// Initialization:
+//		//
+//		InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
+//		//
+//		// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
+//		//
+//		// Initialization:
+//		//
+//		InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
+//		//
+//		// Moves Number: For easy Reference:
+//		//
+//		_myMovesOrder = 1;
+//		//
+//		// Initilize Main Board-Array:
+//		//
+//		InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
+//
+//		/********************************/
+//
+//		std::cout << "\n";
+//
+//		// Draw Header of Board:
+//		//
+//		DrawBoardHeader();
+//
+//		// This is the ANSWER TO QUESTION # 3:
+//		//		
+//		CalculateAllTicTacToeGamesPrintToConsole(_myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
+//		//
+//		// Print to Console some feedback:
+//		//
+//		std::cout << "\n\n***************************************\n\nThere are [ " << (nWinO + nWinX + nDraw) << " ]\npossible games (excluding symmetry), of which \n  * O wins " << nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw << " are drawn.";
+//
+//
+//		// Tell the player WHAT IS COMMING ON:
+//		//
+//		std::cout << "\nNOTE:\n\n* The File could not be created (there was an I/O Error, please read further, up above).\nFor that reason the Output will be displayed in this Console / CMD.\n";
+//
+//	}//End if (printFullOutputToConsole)
+//	//else {}
+//
+//}//End Procedure
+//
+///***END************FILE MANAGER*****************/
+//
+//  /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
+//
