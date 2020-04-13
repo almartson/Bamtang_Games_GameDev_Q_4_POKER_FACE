@@ -1,6 +1,15 @@
 #include "card_manager.hpp"
+//
 #include <string>
 #include <iostream>
+//
+#include <TCHAR.H> // Implicit or explicit include
+#include <string>
+#include <iostream>
+#include <iomanip>      // std::setfill, std::setw
+
+#include <direct.h>
+#include <fstream>
 //
 // Includes with Test-Purposes:
 //
@@ -499,6 +508,276 @@ void CardManager::ConstructPlayerCardCardType(Player &myPlayer, const int &cardI
  *
  * 	1-	INPUT: 	some HARDCODED Values.
  *
+ * 	2-	OUTPUT:	print out to a file, in the desired destination: 'const std::string &fileName'.
+ */
+void CardManager::PlayTheGameOutputToFileVersion
+(const std::string inputLinesArraySize[], const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName)
+{
+
+	// Flag to say we want OUTPUT to be in a File:
+	//
+	const bool tryToWriteToFile = true;
+
+	// Check to see if we can Open, Create a FIle... or not.
+	//
+	if (tryToWriteToFile)
+	{
+
+		// Declare & Initialize: File Object
+		//
+		ofstream myFile(fileName);
+		//
+		// Validation:
+		//
+		if (OpenFileForWritingNotClosing(myFile))
+		{
+
+			// Tell the player where the File will be saved:
+			//
+			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
+			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
+			//
+			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
+			
+			/////////////////////////////////////
+			// Play the Game:
+			//
+			/**
+			 * Prints out the end game output. Just the HEADER:
+			 *
+			 * It has two independent modes:
+			 *  1-  Print to Console
+			 *  2-  Print to a Variable, and THEN to a Text File (Input Text File)
+			 */
+			CardManager::PrintAllOutputGameOverJustHeader(_OUTPUT_MAX_STRING_OR_ARRAY_SIZE,
+
+				_OUTPUT_FIRST_SHORT_TOTAL_CHAR_SECTION /*const int &firstShortTotalCharactersSection*/		/* 8 */,
+				_OUTPUT_SECOND_AND_THIRD_TOTAL_CHAR_SECTION /*const int &secondAndThirdTotalCharactersSection*/		/* 55 */,
+				_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
+
+				true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
+
+				/**Input ostream Text File**/
+				myFile
+			);
+			//
+			// Number of Victories
+			//
+			int p1WinsCount = 0;
+			int p2WinsCount = 0;
+
+
+			// Loop through each Line, to PLAY A GAME WITH THOSE CARDS specified in EVERY LINE (string):
+			//
+			for (int i = 0; i < arraySize; i++)
+			{
+
+				// Construct the Player's Hand of Cards with the INPUT LINE of String:
+				//....because EACH LINE is a different GAME:
+				//
+				const string myGameStringLine1 = inputLinesArraySize[i];
+				//
+				//
+				// Construct P1 and P2 HANDS,
+				//   Note: Only: This HAND Attributte will be filled: Card (* _myCardsToPlayHand)[ _MAX_CARD_PER_HAND_COUNT ];
+				//
+				//...but not 'HAND TYPE' (that will be Setted in the Next Step:
+				//...discoverying the TYPE OF HAND of EACH Player: Playing the Game):
+				//
+				CardManager::ConstructPlayersHandsToPlayLater(myPlayerP1, myPlayerP2, myGameStringLine1);
+
+
+				std::cout << std::flush;
+
+				// Print Players' Cards Data (Card to Play the Game, not the Hand OR HAND TYPE attributes.
+				//
+				//   AT THIS POINT OF THE GAME:
+				//
+				//...IT DOESN'T EVEN KNOW THE NAME OF THE HAND YET:
+				//... => It has to DISCOVER IT by PLAYING THE GAME)
+				//
+			//	PrintPlayerCardsDetails( myPlayerP1 );
+			//	PrintPlayerCardsDetails( myPlayerP2 );
+
+
+				/////& std::cout << "\n**********************************\n -> CardManager::CalculateAndDiscoverAndSetHandTypeFromPlayerCards( myPlayerP1 );\n"<< std::flush;
+
+
+				/**
+				 * If the Player has been Initialized (and His HAND -> CARDS: are already BUILT),
+				 * ...but Its Cards had not been read (i.e.: He has not stated to Play the Game):
+				 *
+				 * ...1- This Method Gets (discovers...) the Type of HAND...
+				 *
+				 * DISCARD THIS: <<  ...IN OTHER Method: This will be done: >>
+				 *
+				 *	THIS WILL BE DONE inside this Method:
+				 *
+				 * --------------------------------------
+				 *
+				 * ...2- Hierarchy Value (among other Attributes, such as NAME), of the Object:
+				 *
+				 * 			Player->_myHand->_myHandType ... ->_hierarchyValue;
+				 */
+				CardManager::CalculateAndDiscoverAndSetHandTypeFromPlayerCards(myPlayerP1);
+				//
+				/////& std::cout << "\n**********************************\n -> CardManager::CalculateAndDiscoverAndSetHandTypeFromPlayerCards( myPlayerP2 );\n"<< std::flush;
+				//
+				CardManager::CalculateAndDiscoverAndSetHandTypeFromPlayerCards(myPlayerP2);
+
+
+				/////& std::cout << "\n*************************END OF:*********\n -> ENDED:  CardManager::CalculateAndDiscoverAndSetHandTypeFromPlayerCards( myPlayerP1 );\n"<< std::flush;
+
+				std::cout << std::flush;
+
+
+
+				//		/**
+				//		 * [ Call this Method to see The HAND of the FULLY CONSTRUCTED Player, BEFORE TRYING TO Finally Play ]
+				//		 * Prints data about CARDS in a PLAYERs HAND.
+				//		 */
+				//		PrintPlayerHandAndHandTypeCardsDetails( myPlayerP1 );
+				//		/**
+				//		 * [ Call this Method to see The HAND of the FULLY CONSTRUCTED Player, BEFORE TRYING TO Finally Play ]
+				//		 * Prints data about CARDS in a PLAYERs HAND.
+				//		 */
+				//		PrintPlayerHandAndHandTypeCardsDetails( myPlayerP2 );
+
+
+				/******************PLAY THE GAME!*********(JUST ONE LINE OF CARDS-DATA...)***********/
+
+				/**
+				* Plays the Game, with the current data that is inside ( Player &myP1, Player &myP2 ):
+				*
+				* a)	HAND -> CARDS
+				* b)	TYPE OF HAND:	_hierarchyValue
+				* ->
+				* (i.e.: Player->_myHand->_myHandType ... ->_hierarchyValue; )
+				* ...
+				* ...previously setted in:   'static void CalculateAndDiscoverAndSetHandTypeFromPlayerCards( Player &myPlayer );'
+				*/
+				bool easyOrHardVictory = true;
+				//
+				Player* myPtrToWinnerPlayer = /* WINNER Player */  CardManager::PlayTheGameTexasPoker(myPlayerP1, myPlayerP2, easyOrHardVictory, false /*printDebugPreliminarOutputDetailsOrNot */);
+				//
+				// Declare variable to state who the winer is, in clearer terms:
+				//
+				const bool p1Wins = ((myPtrToWinnerPlayer) ?
+					(((*myPtrToWinnerPlayer).GetId() == myPlayerP1.GetId()) /* P1 won?? */
+						? true /* P1 won */ : false /* P1 DIDN'T win */)
+					: false /* Ptr is NULL => P1 did not win, Nor P2 did */);
+				//
+				const bool p2Wins = ((myPtrToWinnerPlayer) ?
+					(((*myPtrToWinnerPlayer).GetId() == myPlayerP2.GetId()) /* P2 won?? */
+						? true /* P2 won */ : false /* P2 DIDN'T win */)
+					: false /* Ptr is NULL => P2 did not win, Nor P1 did */);
+				//
+				// Wins count:
+				//
+				p1WinsCount += ((p1Wins) ? 1 : 0);
+				p2WinsCount += ((p2Wins) ? 1 : 0);
+				//
+				// Get myGameStringLine1 for P1, and for P2:
+				//
+				const std::string myGameStringLineForP1 = myGameStringLine1.substr(0, (myGameStringLine1.size() / 2));
+				const std::string myGameStringLineForP2 = myGameStringLine1.substr((myGameStringLine1.size() / 2) + 1, (myGameStringLine1.size() - 1));
+				//
+				// Print the results in a Professional manner:
+				//
+				/**
+				 * Prints out the end game output.
+				 *
+				 * It has two independent modes:
+				 *  1-  Print to Console
+				 *  2-  Print to a Variable, and THEN to a Text File (Input Text File)
+				 */
+				CardManager::PrintAllOutputGameOver(myPlayerP1, myPlayerP2, p1Wins, p2Wins, _OUTPUT_MAX_STRING_OR_ARRAY_SIZE, (i + 1) /*const int &lineNumber*/,
+					myGameStringLineForP1 /*const std::string &myGameLineP1*/,
+					myGameStringLineForP2 /*const std::string &myGameLineP2*/,
+
+					(!easyOrHardVictory) /*const bool &printSecondLineItWasAlmostATie*/,
+
+					_OUTPUT_FIRST_SHORT_TOTAL_CHAR_SECTION /*const int &firstShortTotalCharactersSection*/		/* 8 */,
+					_OUTPUT_SECOND_AND_THIRD_TOTAL_CHAR_SECTION /*const int &secondAndThirdTotalCharactersSection*/		/* 55 */,
+					_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
+
+					true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
+
+					/**Input ostream Text File**/
+					myFile
+				);
+
+			}//End for
+
+			// Print TOTALS:
+			//
+			  /**
+			   * Prints out HOW MANY VICTORIES there are: for P1 and P2.
+			   *
+			   * It has two independent modes:
+			   * 	1-	Print to Console
+			   * 	2-	Print to a Variable, and THEN to a Text File (Input Text File)
+			   */
+			CardManager::PrintTotalsVictoriesOutputGameOver
+			(
+				_OUTPUT_LINE_TOTALES_2_SEPARATOR,
+				p1WinsCount, p2WinsCount,
+
+				_OUTPUT_MAX_STRING_OR_ARRAY_SIZE,
+
+				_OUTPUT_FIRST_SHORT_TOTAL_CHAR_SECTION /*const int &firstShortTotalCharactersSection*/		/* 8 */,
+				_OUTPUT_SECOND_AND_THIRD_TOTAL_CHAR_SECTION /*const int &secondAndThirdTotalCharactersSection*/		/* 55 */,
+				_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
+
+				true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
+				true /*const bool &printNewLineAtTheBeginning*/, true /*const bool &printNewLineAtTheEnd*/,
+
+				/**Input ostream Text File**/
+				myFile
+			);
+
+			/////////////////////////////////////
+			//
+			// Print to Console some feedback:
+			//
+			std::cout << "\n\n***************************************\n\nThere are [ " /*<< (nWinO + nWinX + nDraw) <<*/ " ]\npossible games (excluding symmetry), of which \n  * O wins " /*<< nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw <<*/ " are drawn.";
+
+
+			// Close the Text File:
+			//
+			CloseFileForWriting(myFile);
+
+		}//End if
+		else
+		{
+			// Could not open file:
+			//
+			/////printFullOutputToConsole = true;
+			std::cout << "\n" << "\n->\nCannot open file, file does not exist.\nThere is an I/O issue........";
+
+		}//End else
+
+	}
+	else
+	{
+		// IT COULD NOT CREATE THE FILE.
+		//
+		/////printFullOutputToConsole = true;
+		std::cout << "\n" << "\n->\nCannot Create the file.\nThere is an I/O issue........";
+
+	}//End else
+
+}//End Method
+
+
+
+/**
+ * Plays the Game, in Console version.
+ *
+ * It is Test Version, with just
+ *
+ * 	1-	INPUT: 	some HARDCODED Values.
+ *
  * 	2-	OUTPUT:	print out to Console.
  */
 void CardManager::PlayTheGameConsoleVersion
@@ -507,7 +786,7 @@ void CardManager::PlayTheGameConsoleVersion
 	Player &myPlayerP1, Player &myPlayerP2
 )
 {
-
+	ofstream myFile;
     /**
      * Prints out the end game output. Just the HEADER:
      *
@@ -521,9 +800,12 @@ void CardManager::PlayTheGameConsoleVersion
 		_OUTPUT_SECOND_AND_THIRD_TOTAL_CHAR_SECTION /*const int &secondAndThirdTotalCharactersSection*/		/* 55 */,
 		_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
 
-			true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/
+			true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
 
 		/**Input ostream Text File**/
+		//NULL IT IS CNSOLE VERSION
+		myFile
+
 	);
 	//
 //	// Print a Blank Line:
@@ -706,9 +988,11 @@ void CardManager::PlayTheGameConsoleVersion
 				_OUTPUT_SECOND_AND_THIRD_TOTAL_CHAR_SECTION /*const int &secondAndThirdTotalCharactersSection*/		/* 55 */,
 				_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
 
-				true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/
+				true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
 
 			/**Input ostream Text File**/
+			//NULL IT IS CNSOLE VERSION
+			myFile
 		);
 
 	}//End for
@@ -734,9 +1018,11 @@ void CardManager::PlayTheGameConsoleVersion
 		_OUTPUT_FOURTH_FINAL_TOTAL_CHAR_SECTION /*const int &fourthFinalShortTotalCharactersSection*/	/* 9 */,
 
 		true /*const bool &printOutToConsole*/, true /*const bool &printOutToTextFile*/,
-		true /*const bool &printNewLineAtTheBeginning*/, true /*const bool &printNewLineAtTheEnd*/
+		true /*const bool &printNewLineAtTheBeginning*/, true /*const bool &printNewLineAtTheEnd*/,
 
 		/**Input ostream Text File**/
+		//NULL IT IS CNSOLE VERSION
+		myFile
 	  );
 
 }//End Method
@@ -947,10 +1233,11 @@ void CardManager::PrintAllOutputGameOver
 	const int &secondAndThirdTotalCharactersSection		/* 55 */,
 	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-	const bool &printOutToConsole,  const bool &printOutToTextFile
+	const bool &printOutToConsole,  const bool &printOutToTextFile,
 	/*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
 
 	/**Input ostream Text File**/
+	ofstream &myfile
 )
 {
 
@@ -971,7 +1258,7 @@ void CardManager::PrintAllOutputGameOver
 	//	1-	Line 0
 	//		.1-	Prints Game Number #.  Section Space = 8 Chars (Total).
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			lineNumber, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             true /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/ );
@@ -979,7 +1266,7 @@ void CardManager::PrintAllOutputGameOver
 	//		.2-	Prints P1's Cards initial 'INPUT STRING' (e.g.: "AD 3H 5S 9C JD" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			myGameLineP1, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -987,7 +1274,7 @@ void CardManager::PrintAllOutputGameOver
 	//		.3-	Prints P2's Cards initial 'INPUT STRING' (e.g.: "AD 3H 5S 9C JD" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces (myfile, myOutputString,
 			myGameLineP2, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1018,7 +1305,7 @@ void CardManager::PrintAllOutputGameOver
 
 	}//End else of
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			myWinnerLine0NumberOutput, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1030,7 +1317,7 @@ void CardManager::PrintAllOutputGameOver
 	//		.1-	A Section of ONLYSPACES, to serve as a TABBED space.
 	//		Section Space = 8 Chars (Total).
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			"", firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1039,7 +1326,7 @@ void CardManager::PrintAllOutputGameOver
 	//			+ Spaces   (to fill the space).
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			(*( myP1.GetMyHand() )).GetOutputMyGameLine1(), secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1048,7 +1335,7 @@ void CardManager::PrintAllOutputGameOver
 	//			+ Spaces   (to fill the space).
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 			(*( myP2.GetMyHand() )).GetOutputMyGameLine1(), secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1066,7 +1353,7 @@ void CardManager::PrintAllOutputGameOver
 		//		.1-	A Section of ONLYSPACES, to serve as a TABBED space.
 		//		Section Space = 8 Chars (Total).
 		//
-		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+		CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 				"", firstShortTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
 	            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1077,7 +1364,7 @@ void CardManager::PrintAllOutputGameOver
 		//			+ Spaces   (to fill the space).
 		//		Section Total Chards = 55
 		//
-		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+		CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 				(*( myP1.GetMyHand() )).GetOutputMyGameLine2(), secondAndThirdTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
 	            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1088,7 +1375,7 @@ void CardManager::PrintAllOutputGameOver
 		//			+ Spaces   (to fill the space).
 		//		Section Total Chards = 55
 		//
-		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+		CardManager::PrintVariableAndThenFillWithSpaces(myfile, myOutputString,
 				(*( myP2.GetMyHand() )).GetOutputMyGameLine2(), secondAndThirdTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
 	            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1119,9 +1406,10 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
 	const bool &printOutToConsole,  const bool &printOutToTextFile,
-	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd
+	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd,
 
 	/**Input ostream Text File**/
+	ofstream &myFile
 )
 {
 
@@ -1143,16 +1431,17 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
     		fourthFinalShortTotalCharactersSection	/* 9 */,
 
     		true /*printOutToConsole*/, true /*printOutToTextFile*/,
-    		printNewLineAtTheBeginning /*printNewLineAtTheBeginning*/, false /*printNewLineAtTheEnd*/
+    		printNewLineAtTheBeginning /*printNewLineAtTheBeginning*/, false /*printNewLineAtTheEnd*/,
 
-    	/**Input ostream Text File**/
+    		/**Input ostream Text File**/
+			myFile
     );
 
 
 	//	0-	Line 0:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myFile, myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE_TOTALES_1, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             true /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1160,7 +1449,7 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 	//		.2-	Prints P1's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myFile, myStringStoreTheOutputLineSectionsHereFinal,
 			p1Victories, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1168,7 +1457,7 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 	//		.3-	Prints P2's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myFile, myStringStoreTheOutputLineSectionsHereFinal,
 			p2Victories, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1202,7 +1491,7 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 
 	}//End else of
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myFile, myStringStoreTheOutputLineSectionsHereFinal,
 			myWinnerLine0NumberOutput, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1217,9 +1506,10 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
     		fourthFinalShortTotalCharactersSection	/* 9 */,
 
     		true /*printOutToConsole*/, true /*printOutToTextFile*/,
-    		false /*printNewLineAtTheBeginning*/, printNewLineAtTheEnd /*printNewLineAtTheEnd*/
+    		false /*printNewLineAtTheBeginning*/, printNewLineAtTheEnd /*printNewLineAtTheEnd*/,
 
-    	/**Input ostream Text File**/
+    		/**Input ostream Text File**/
+			myFile
     );
 
 }//End Method
@@ -1243,9 +1533,10 @@ void CardManager::PrintASeparatorLine
 	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
 	const bool &printOutToConsole,  const bool &printOutToTextFile,
-	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd
+	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd,
 
 	/**Input ostream Text File**/
+	ofstream &myfile
 )
 {
 
@@ -1260,7 +1551,7 @@ void CardManager::PrintASeparatorLine
 	//	0-	Line 0:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces (myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
 			printNewLineAtTheBeginning /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1268,7 +1559,7 @@ void CardManager::PrintASeparatorLine
 	//		.2-	Prints P1's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1276,7 +1567,7 @@ void CardManager::PrintASeparatorLine
 	//		.3-	Prints P2's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1285,7 +1576,7 @@ void CardManager::PrintASeparatorLine
 	//		.4-	Prints out: Who the WINNER IS. (e.g.: "Jugador 1"  OR  "Jugador 2") + Nothing else, endline.
 	//		Section Total Chards = 9
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, printNewLineAtTheEnd /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1309,10 +1600,11 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	const int &secondAndThirdTotalCharactersSection		/* 55 */,
 	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-	const bool &printOutToConsole,  const bool &printOutToTextFile
+	const bool &printOutToConsole,  const bool &printOutToTextFile,
 	/*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
 
 	/**Input ostream Text File**/
+	ofstream &myfile
 )
 {
 
@@ -1327,7 +1619,7 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	//	0-	Line -1:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_1_MANO, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1335,7 +1627,7 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	//		.2-	Prints P1's Name (e.g.: "Jugador 1" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_2_JUGADOR_1, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1343,7 +1635,7 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	//		.3-	Prints P2's Name (e.g.: "Jugador 2" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_3_JUGADOR_2, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -1352,7 +1644,7 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	//		.4-	Prints out: The TITLE of Who the WINNER IS. (e.g.:	"Ganador") + Nothing else, endline.
 	//		Section Total Chards = 9
 	//
-	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces(myfile, myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_4_GANADOR, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
             false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
@@ -4661,7 +4953,7 @@ std::ostream& CardManager::PrintSection(std::ostream& o, const int &numbersToPri
  *  @printOutToConsole      ->   Prints out to Console
  *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
  */
-/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces( ofstream &myfile, std::string &myOutputString,
 	const int &numberItemToPrint, const int &totalNumberOfChars,
 	const bool &printOutToConsole, const bool &printOutToATextFile,
 	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft)
@@ -4700,9 +4992,14 @@ std::ostream& CardManager::PrintSection(std::ostream& o, const int &numbersToPri
 	//
 	// Print to a TEXT FILE .txt
 	//
-	// if ( printOutToATextFile )
-	// {
-	// }//End if ( printOutToConsole )
+	if (printOutToATextFile)
+	{
+
+		// Print to File:
+		//
+		myfile << myOutputString;
+
+	}//End if ( printOutToConsole )
 
 }//End Function
 
@@ -4715,7 +5012,7 @@ std::ostream& CardManager::PrintSection(std::ostream& o, const int &numbersToPri
  *  @printOutToConsole      ->   Prints out to Console
  *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
  */
-/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces( ofstream &myfile, std::string &myOutputString,
 	const std::string &stringItemToPrint, const int &totalNumberOfChars,
 	const bool &printOutToConsole, const bool &printOutToATextFile,
 	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft)
@@ -4754,9 +5051,14 @@ std::ostream& CardManager::PrintSection(std::ostream& o, const int &numbersToPri
 	//
 	// Print to a TEXT FILE .txt
 	//
-	// if ( printOutToATextFile )
-	// {
-	// }//End if ( printOutToConsole )
+	if ( printOutToATextFile )
+	{
+
+		// Print to File:
+		//
+		myfile << myOutputString;
+
+	}//End if ( printOutToConsole )
 
 }//End Function
 
@@ -4822,199 +5124,140 @@ std::string CardManager::NumberToString(T Number)
 /***END**************Miscelaneous**********************/
 
 
-///***************FILE MANAGER*****************/
-//
-///*
-//	How to use:
-//
-//	// Name of the File to Write the Output to:
-//	//
-//	const string fileName = "ListAllTicTacToeGames.txt";
-//
-//	//// Main Procedure call: Solution to the Question asked:
-//	////
-//	ListAllTicTacToeGames( fileName );
-//*/
-//
-///**
-// * Draws the Header of the Board.
-//**/
-//void DrawBoardHeader(ofstream &myfile)
-//{
-//
-//	myfile << "  N    X 0 X 0 X 0 X 0 X Win\n";
-//
-//}//End Procedure
-//
-///**
-//* (Final) Answer to the Test, Question number 3: MICHI  (a.k.a.: TIC TAC TOE).
-//*/
-//void ListAllTicTacToeGames(const string &fileName)
-//{
-//
-//	// Validation: Try to Open an Existing file; or CREATE it if it does ot exist:
-//	//
-//	bool tryToWriteToFile = OpenFileForWritingOrCreateIt(fileName);
-//
-//	// Flag Variable to know if the opening file process was successful in the end.
-//	//...if it was not: The Output will be displayed on the CMD Console:
-//	//
-//	bool printFullOutputToConsole = false;
-//
-//	/***********************************/
-//
-//	// Variables Initialization:
-//
-//	// Necessary Variables:
-//	//
-//	char player = _MY_PLAYER_X;
-//
-//	// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
-//	//
-//	int _myArrayMoveBoardPositions[_MY_MOVES_ORDER_ARRAY_SIZE];
-//	//
-//	// Initialization:
-//	//
-//	InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
-//	//
-//	// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
-//	//
-//	char _myArrayPlayerWhoMoved[_MY_MOVES_ORDER_ARRAY_SIZE];
-//	//
-//	// Initialization:
-//	//
-//	InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
-//	//
-//	// Moves Number: For easy Reference:
-//	//
-//	int _myMovesOrder = 1;
-//	//
-//	// Initilize Main Board-Array:
-//	//
-//	InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
-//
-//	/***********************************/
-//
-//	// Check to see if we can Open, Create a FIle... or not.
-//	//
-//	if (tryToWriteToFile)
-//	{
-//
-//		// Declare & Initialize: File Object
-//		//
-//		ofstream myfile(fileName);
-//		//
-//		// Validation:
-//		//
-//		if (OpenFileForWritingNotClosing(myfile))
-//		{
-//
-//			// Tell the player where the File will be saved:
-//			//
-//			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
-//			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
-//			//
-//			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
-//
-//			// Draw Header of Board:
-//			//
-//			DrawBoardHeader(myfile);
-//
-//			// This is the ANSWER TO QUESTION # 3:
-//			//
-//			CalculateAllTicTacToeGamesInATextFile(myfile, _myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
-//			//
-//			// Print to Console some feedback:
-//			//
-//			std::cout << "\n\n***************************************\n\nThere are [ " << (nWinO + nWinX + nDraw) << " ]\npossible games (excluding symmetry), of which \n  * O wins " << nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw << " are drawn.";
-//
-//
-//			// Close the Text File:
-//			//
-//			CloseFileForWriting(myfile);
-//
-//		}//End if
-//		else
-//		{
-//			// Could not open file:
-//			//
-//			printFullOutputToConsole = true;
-//			std::cout << "\n" << "\n->\nCannot open file, file does not exist.\nThere is an I/O issue........";
-//
-//		}//End else
-//
-//	}
-//	else
-//	{
-//		// IT COULD NOT CREATE THE FILE.
-//		//
-//		printFullOutputToConsole = true;
-//		std::cout << "\n" << "\n->\nCannot Create the file.\nThere is an I/O issue........";
-//
-//	}//End else
-//
-//
-//	// Last correction: if the file could not be opened: Print the Results to the Console:
-//	//
-//	if (printFullOutputToConsole)
-//	{
-//
-//		/********************************/
-//
-//		// Variables reinitialization:
-//		// Necessary Variables:
-//		//
-//		nWinO = 0, nWinX = 0, nDraw = 0;
-//		//
-//		player = _MY_PLAYER_X;
-//
-//		// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
-//		//
-//		// Initialization:
-//		//
-//		InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
-//		//
-//		// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
-//		//
-//		// Initialization:
-//		//
-//		InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
-//		//
-//		// Moves Number: For easy Reference:
-//		//
-//		_myMovesOrder = 1;
-//		//
-//		// Initilize Main Board-Array:
-//		//
-//		InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
-//
-//		/********************************/
-//
-//		std::cout << "\n";
-//
-//		// Draw Header of Board:
-//		//
-//		DrawBoardHeader();
-//
-//		// This is the ANSWER TO QUESTION # 3:
-//		//		
-//		CalculateAllTicTacToeGamesPrintToConsole(_myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
-//		//
-//		// Print to Console some feedback:
-//		//
-//		std::cout << "\n\n***************************************\n\nThere are [ " << (nWinO + nWinX + nDraw) << " ]\npossible games (excluding symmetry), of which \n  * O wins " << nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw << " are drawn.";
-//
-//
-//		// Tell the player WHAT IS COMMING ON:
-//		//
-//		std::cout << "\nNOTE:\n\n* The File could not be created (there was an I/O Error, please read further, up above).\nFor that reason the Output will be displayed in this Console / CMD.\n";
-//
-//	}//End if (printFullOutputToConsole)
-//	//else {}
-//
-//}//End Procedure
-//
-///***END************FILE MANAGER*****************/
-//
-//  /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
-//
+/***************FILE MANAGER*****************/
+
+/*
+	How to use:
+
+	// Name of the File to Write the Output to:
+	//
+	const string fileName = "ListAllTicTacToeGames.txt";
+
+	//// Main Procedure call: Solution to the Question asked:
+	////
+	ListAllTicTacToeGames( fileName );
+*/
+
+/**
+ * Draws the Header of the Board.
+**/
+void DrawBoardHeader(ofstream &myfile)
+{
+
+	myfile << "  N    X 0 X 0 X 0 X 0 X Win\n";
+
+}//End Procedure
+
+/**
+* (Final) Answer to the Test, Question number 3: MICHI  (a.k.a.: TIC TAC TOE).
+*/
+void WriteGameOutputToFile(const string &fileName)
+{
+
+	// Validation: Try to Open an Existing file; or CREATE it if it does ot exist:
+	//
+	bool tryToWriteToFile = OpenFileForWritingOrCreateIt(fileName);
+
+	// Flag Variable to know if the opening file process was successful in the end.
+	//...if it was not: The Output will be displayed on the CMD Console:
+	//
+	bool printFullOutputToConsole = false;
+
+	/***********************************/
+
+	// Variables Initialization:
+
+	//// Necessary Variables:
+	////
+	//char player = _MY_PLAYER_X;
+
+	//// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
+	////
+	//int _myArrayMoveBoardPositions[_MY_MOVES_ORDER_ARRAY_SIZE];
+	////
+	//// Initialization:
+	////
+	//InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
+	////
+	//// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
+	////
+	//char _myArrayPlayerWhoMoved[_MY_MOVES_ORDER_ARRAY_SIZE];
+	////
+	//// Initialization:
+	////
+	//InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
+	////
+	//// Moves Number: For easy Reference:
+	////
+	//int _myMovesOrder = 1;
+	////
+	//// Initilize Main Board-Array:
+	////
+	//InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
+
+	/***********************************/
+
+	// Check to see if we can Open, Create a FIle... or not.
+	//
+	if (tryToWriteToFile)
+	{
+
+		// Declare & Initialize: File Object
+		//
+		ofstream myfile(fileName);
+		//
+		// Validation:
+		//
+		if (OpenFileForWritingNotClosing(myfile))
+		{
+
+			// Tell the player where the File will be saved:
+			//
+			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
+			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
+			//
+			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
+
+			// Draw Header of Board:
+			//
+			DrawBoardHeader(myfile);
+
+			//// This is the ANSWER TO QUESTION # 3:
+			////
+			//CalculateAllTicTacToeGamesInATextFile(myfile, _myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
+			//
+			// Print to Console some feedback:
+			//
+			std::cout << "\n\n***************************************\n\nThere are [ " /*<< (nWinO + nWinX + nDraw) <<*/ " ]\npossible games (excluding symmetry), of which \n  * O wins " /*<< nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw <<*/ " are drawn.";
+
+
+			// Close the Text File:
+			//
+			CloseFileForWriting(myfile);
+
+		}//End if
+		else
+		{
+			// Could not open file:
+			//
+			printFullOutputToConsole = true;
+			std::cout << "\n" << "\n->\nCannot open file, file does not exist.\nThere is an I/O issue........";
+
+		}//End else
+
+	}
+	else
+	{
+		// IT COULD NOT CREATE THE FILE.
+		//
+		printFullOutputToConsole = true;
+		std::cout << "\n" << "\n->\nCannot Create the file.\nThere is an I/O issue........";
+
+	}//End else
+
+}//End Procedure
+
+/***END************FILE MANAGER*****************/
+
+  /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
+

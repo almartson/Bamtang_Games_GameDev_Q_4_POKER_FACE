@@ -360,6 +360,20 @@ class CardManager
 		  Player &myPlayerP1, Player &myPlayerP2
   );
 
+  /**
+   * Plays the Game, in Console version.
+   *
+   * It is Test Version, with just
+   *
+   * 	1-	INPUT: 	some HARDCODED Values.
+   *
+   * 	2-	OUTPUT:	print out to Console.
+   */
+  static void PlayTheGameOutputToFileVersion 
+  (
+	  const std::string inputLinesArraySize[], const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName
+  );
+
 
   /**
    * Plays the Game, with the current data that is inside ( Player &myP1, Player &myP2 ):
@@ -383,24 +397,25 @@ class CardManager
    */
   static void PrintAllOutputGameOver
   (
-  	Player &myP1,					Player &myP2,
-  	const bool &p1Wins,				const bool &p2Wins,
+	  Player &myP1, Player &myP2,
+	  const bool &p1Wins, const bool &p2Wins,
 
-  	const int &arraySize,
-  	const int &lineNumber,
-  	const std::string &myGameLineP1,
-  	const std::string &myGameLineP2,
+	  const int &arraySize,
+	  const int &lineNumber,
+	  const std::string &myGameLineP1,
+	  const std::string &myGameLineP2,
 
-  	const bool &printSecondLineItWasAlmostATie,
+	  const bool &printSecondLineItWasAlmostATie,
 
-  	const int &firstShortTotalCharactersSection 		/* 8 */,
-  	const int &secondAndThirdTotalCharactersSection		/* 55 */,
-  	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
+	  const int &firstShortTotalCharactersSection 		/* 8 */,
+	  const int &secondAndThirdTotalCharactersSection		/* 55 */,
+	  const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-  	const bool &printOutToConsole,  const bool &printOutToTextFile
-  	/*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
+	  const bool &printOutToConsole, const bool &printOutToTextFile,
+	  /*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
 
-  	/**Input ostream Text File**/
+	  /**Input ostream Text File**/
+	  ofstream &myfile
   );
 
   /**
@@ -412,16 +427,17 @@ class CardManager
    */
   static void PrintAllOutputGameOverJustHeader
   (
-  	const int &arraySize,
+	  const int &arraySize,
 
-  	const int &firstShortTotalCharactersSection 		/* 8 */,
-  	const int &secondAndThirdTotalCharactersSection		/* 55 */,
-  	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
+	  const int &firstShortTotalCharactersSection 		/* 8 */,
+	  const int &secondAndThirdTotalCharactersSection		/* 55 */,
+	  const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-  	const bool &printOutToConsole,  const bool &printOutToTextFile
-  	/*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
+	  const bool &printOutToConsole, const bool &printOutToTextFile,
+	  /*const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd*/
 
-  	/**Input ostream Text File**/
+	  /**Input ostream Text File**/
+	  ofstream &myfile
   );
 
   /**
@@ -433,20 +449,21 @@ class CardManager
    */
   static void PrintTotalsVictoriesOutputGameOver
   (
-  	const std::string &mySeparator,
-  	const int &p1Victories,
-  	const int &p2Victories,
+	  const std::string &mySeparator,
+	  const int &p1Victories,
+	  const int &p2Victories,
 
-  	const int &arraySize,
+	  const int &arraySize,
 
-  	const int &firstShortTotalCharactersSection 		/* 8 */,
-  	const int &secondAndThirdTotalCharactersSection		/* 55 */,
-  	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
+	  const int &firstShortTotalCharactersSection 		/* 8 */,
+	  const int &secondAndThirdTotalCharactersSection		/* 55 */,
+	  const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-  	const bool &printOutToConsole,  const bool &printOutToTextFile,
-  	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd
+	  const bool &printOutToConsole, const bool &printOutToTextFile,
+	  const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd,
 
-  	/**Input ostream Text File**/
+	  /**Input ostream Text File**/
+	  ofstream &myfile
   );
 
   /**
@@ -458,17 +475,18 @@ class CardManager
    */
   static void PrintASeparatorLine
   (
-  	const std::string &charSeparator,
-  	const int &arraySize,
+	  const std::string &charSeparator,
+	  const int &arraySize,
 
-  	const int &firstShortTotalCharactersSection 		/* 8 */,
-  	const int &secondAndThirdTotalCharactersSection		/* 55 */,
-  	const int &fourthFinalShortTotalCharactersSection	/* 9 */,
+	  const int &firstShortTotalCharactersSection 		/* 8 */,
+	  const int &secondAndThirdTotalCharactersSection		/* 55 */,
+	  const int &fourthFinalShortTotalCharactersSection	/* 9 */,
 
-  	const bool &printOutToConsole,  const bool &printOutToTextFile,
-  	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd
+	  const bool &printOutToConsole, const bool &printOutToTextFile,
+	  const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd,
 
-  	/**Input ostream Text File**/
+	  /**Input ostream Text File**/
+	  ofstream &myfile
   );
 
 
@@ -968,7 +986,7 @@ class CardManager
    *  @printOutToConsole      ->   Prints out to Console
    *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
    */
-  static /*inline*/ void PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+  static /*inline*/ void PrintVariableAndThenFillWithSpaces(ofstream &myfile, std::string &myOutputString,
 	  const int &numberItemToPrint, const int &totalNumberOfChars,
 	  const bool &printOutToConsole, const bool &printOutToATextFile,
 	  const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft);
@@ -981,7 +999,7 @@ class CardManager
    *  @printOutToConsole      ->   Prints out to Console
    *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
    */
-  static /*inline*/ void PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+  static /*inline*/ void PrintVariableAndThenFillWithSpaces(ofstream &myfile, std::string &myOutputString,
 	  const std::string &stringItemToPrint, const int &totalNumberOfChars,
 	  const bool &printOutToConsole, const bool &printOutToATextFile,
 	  const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft);

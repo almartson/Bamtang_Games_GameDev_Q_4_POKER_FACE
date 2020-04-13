@@ -5,12 +5,15 @@
 #include <windows.h>
 #include <tchar.h>
 
-//#ifdef UNICODE
-//	//typedef std::wstring String;
-//	std::basic_string<TCHAR> String;
+// Problem: COnversion between TCHAR and string:  Another soluton is:
+//
+//#ifndef UNICODE
+//	typedef std::string String
 //#else
-//	typedef std::string String;
+//	typedef std::wstring String
 //#endif
+
+// With:
 
 //#ifdef UNICODE
 //	#define TCHAR wchar_t

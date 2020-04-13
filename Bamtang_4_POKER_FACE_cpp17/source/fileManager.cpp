@@ -1,7 +1,7 @@
 ﻿//MyFunctions.cpp
 
 #include <TCHAR.H> // Implicit or explicit include
-#include <windows.h>
+#include <windows.h>	// GetFullPathName() function
 #include <tchar.h>
 // Not necessary: (just for t_printf()..) #include <stdio.h>
 
@@ -9,7 +9,6 @@
 #include <iostream>
 #include <direct.h>
 #include <fstream>		// myfile.is_open()
-#include <windows.h>	// GetFullPathName() function
 
 #include "fileManager.h"
 
