@@ -2,8 +2,6 @@
 #include <string>
 #include <iostream>
 //
-#include "util_functions.hpp"
-//
 // Includes with Test-Purposes:
 //
 #include "test_functions.hpp"
@@ -52,7 +50,7 @@ void CardManager::InitializeGameObjectsToPlayLater(const Player &myPlayerOne, co
   //
   // Copy the contents of the Const Array inside the Attribute of this Class:
   //
-  UtilFunctions::CopyArrayAToOtherArrayB( AUX_ARRAY_ENG, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH );
+  CardManager::CopyArrayAToOtherArrayB( AUX_ARRAY_ENG, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH );
   //
   //
   // 2- SPANISH
@@ -64,7 +62,7 @@ void CardManager::InitializeGameObjectsToPlayLater(const Player &myPlayerOne, co
   //
   // Copy the contents of the Const Array inside the Attribute of this Class:
   //
-  UtilFunctions::CopyArrayAToOtherArrayB( AUX_ARRAY_ESP, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL );
+  CardManager::CopyArrayAToOtherArrayB( AUX_ARRAY_ESP, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL );
 
 
   // (*this.) == this->
@@ -388,7 +386,7 @@ void CardManager::ConstructPlayersHandsToPlayLater(Player &myPlayerOne, Player &
     //
     // Tokenize and get an array of ALL CARDS:
     //
-	UtilFunctions::TokenizeStringSplitIntoCArray( myGameLineString, delimiter, myArrayOfStringCardsInThisGame );
+	CardManager::TokenizeStringSplitIntoCArray( myGameLineString, delimiter, myArrayOfStringCardsInThisGame );
 
 
 //    /////////////////debug///////////
@@ -411,7 +409,7 @@ void CardManager::ConstructPlayersHandsToPlayLater(Player &myPlayerOne, Player &
     //
     // Split into 2 ARRAYS:
     //
-	UtilFunctions::SplitBigArrayIntoTwoArrays( myArrayOfStringCardsInThisGame, myGameP1, myGameP2 );
+	CardManager::SplitBigArrayIntoTwoArrays( myArrayOfStringCardsInThisGame, myGameP1, myGameP2 );
 
 
     // 2-	It calls to the necessary Methods for each Player (P1 and P2):
@@ -691,7 +689,7 @@ void CardManager::PlayTheGameConsoleVersion
 	    /**
 	     * Prints out the end game output.
 	     *
-	     * It has tow independent modes:
+	     * It has two independent modes:
 	     *  1-  Print to Console
 	     *  2-  Print to a Variable, and THEN to a Text File (Input Text File)
 	     */
@@ -964,32 +962,32 @@ void CardManager::PrintAllOutputGameOver
     // 0.2-     winnerPlayerNumber, Number of player who won:
     //
     const int winnerPlayerNumberLocal = ( (p1Wins) ? 1 /* P1 won */ : ( (p2Wins) ? 2  /* P2 won */ : ( 0  /* No one won: DRAW */ ) ) );
-    const std::string winnerPlayerNumberAsString = UtilFunctions::NumberToString ( winnerPlayerNumberLocal );
+    const std::string winnerPlayerNumberAsString = CardManager::NumberToString ( winnerPlayerNumberLocal );
 
 
 	//	1-	Line 0
 	//		.1-	Prints Game Number #.  Section Space = 8 Chars (Total).
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
 			lineNumber, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            true /* new line at the beginning */, false /* new line at the end */ );
+            true /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/ );
 
 	//		.2-	Prints P1's Cards initial 'INPUT STRING' (e.g.: "AD 3H 5S 9C JD" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
 			myGameLineP1, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.3-	Prints P2's Cards initial 'INPUT STRING' (e.g.: "AD 3H 5S 9C JD" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
 			myGameLineP2, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	//		.4-	Prints out: Who the WINNER IS. (e.g.: "Jugador 1"  OR  "Jugador 2") + Nothing else, endline.
@@ -1017,10 +1015,10 @@ void CardManager::PrintAllOutputGameOver
 
 	}//End else of
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
 			myWinnerLine0NumberOutput, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, true /* new line at the end */ );
+            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	///////////////////////////////////
@@ -1029,28 +1027,28 @@ void CardManager::PrintAllOutputGameOver
 	//		.1-	A Section of ONLYSPACES, to serve as a TABBED space.
 	//		Section Space = 8 Chars (Total).
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myOutputString,
 			"", firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.2-	[ "P1_OUTPUT_LINE_1" ] Prints P1's "NAME OF HAND", i.e.: "GAME OUTPUT_LINE_1" (e.g.: "Par de Q" )
 	//			+ Spaces   (to fill the space).
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces (myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
 			(*( myP1.GetMyHand() )).GetOutputMyGameLine1(), secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.3-	[ "P2_OUTPUT_LINE_1" ] Prints P2's "NAME OF HAND", i.e.: "GAME OUTPUT_LINE_2" (e.g.: "Par de Q" )
 	//			+ Spaces   (to fill the space).
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces (myOutputString,
+	CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
 			(*( myP2.GetMyHand() )).GetOutputMyGameLine1(), secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, true /* new line at the end */ );
+            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	///////////////////////////////////
@@ -1065,10 +1063,10 @@ void CardManager::PrintAllOutputGameOver
 		//		.1-	A Section of ONLYSPACES, to serve as a TABBED space.
 		//		Section Space = 8 Chars (Total).
 		//
-		UtilFunctions::PrintVariableAndThenFillWithSpaces (myOutputString,
+		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
 				"", firstShortTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-	            false /* new line at the beginning */, false /* new line at the end */ );
+	            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 		//		.2-	[ "P1_OUTPUT_2_LINE_2" ] Prints P1's "Máxima Carta:...", i.e.: "GAME OUTPUT_2_LINE_2"
@@ -1076,10 +1074,10 @@ void CardManager::PrintAllOutputGameOver
 		//			+ Spaces   (to fill the space).
 		//		Section Total Chards = 55
 		//
-		UtilFunctions::PrintVariableAndThenFillWithSpaces (myOutputString,
-				(*( myP1.GetMyHand() )).GetOutputMyGameLine2(), secondAndThirdTotalCharactersSection + 1,
+		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
+				(*( myP1.GetMyHand() )).GetOutputMyGameLine2(), secondAndThirdTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-	            false /* new line at the beginning */, false /* new line at the end */ );
+	            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 		//		.3-	[ "P2_OUTPUT_2_LINE_2" ] Prints P2's "Máxima Carta:...", i.e.: "GAME OUTPUT_2_LINE_2"
@@ -1087,10 +1085,10 @@ void CardManager::PrintAllOutputGameOver
 		//			+ Spaces   (to fill the space).
 		//		Section Total Chards = 55
 		//
-		UtilFunctions::PrintVariableAndThenFillWithSpaces (myOutputString,
+		CardManager::PrintVariableAndThenFillWithSpaces (myOutputString,
 				(*( myP2.GetMyHand() )).GetOutputMyGameLine2(), secondAndThirdTotalCharactersSection,
 				printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-	            false /* new line at the beginning */, true /* new line at the end */ );
+	            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	}//End if ( printSecondLineItWasAlmostATie )
 
@@ -1151,26 +1149,26 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 	//	0-	Line 0:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE_TOTALES_1, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            true /* new line at the beginning */, false /* new line at the end */ );
+            true /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.2-	Prints P1's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			p1Victories, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.3-	Prints P2's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			p2Victories, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	//		.4-	Prints out: Who the WINNER IS. (e.g.: "Jugador 1"  OR  "Jugador 2") + Nothing else, endline.
@@ -1201,10 +1199,10 @@ void CardManager::PrintTotalsVictoriesOutputGameOver
 
 	}//End else of
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			myWinnerLine0NumberOutput, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, true /* new line at the end */ );
+            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
     //	ZZ-	Line : Last: Separator Line: "*************************************"
@@ -1259,35 +1257,35 @@ void CardManager::PrintASeparatorLine
 	//	0-	Line 0:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-			printNewLineAtTheBeginning /* new line at the beginning */, false /* new line at the end */ );
+			printNewLineAtTheBeginning /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.2-	Prints P1's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.3-	Prints P2's Won GAMES (TOTAL) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	//		.4-	Prints out: Who the WINNER IS. (e.g.: "Jugador 1"  OR  "Jugador 2") + Nothing else, endline.
 	//		Section Total Chards = 9
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			charSeparator, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, printNewLineAtTheEnd /* new line at the end */ );
+            false /* new line at the beginning */, printNewLineAtTheEnd /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 }//End Method
 
@@ -1326,35 +1324,35 @@ void CardManager::PrintAllOutputGameOverJustHeader
 	//	0-	Line -1:	HEADER
 	//		.1-	Prints MANO  (Hand) Title.	Section Space = 8 Chars (Total).
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_1_MANO, firstShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.2-	Prints P1's Name (e.g.: "Jugador 1" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_2_JUGADOR_1, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 	//		.3-	Prints P2's Name (e.g.: "Jugador 2" ) + Spaces
 	//		Section Total Chards = 55
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_3_JUGADOR_2, secondAndThirdTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, false /* new line at the end */ );
+            false /* new line at the beginning */, false /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 
 	//		.4-	Prints out: The TITLE of Who the WINNER IS. (e.g.:	"Ganador") + Nothing else, endline.
 	//		Section Total Chards = 9
 	//
-	UtilFunctions::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
+	CardManager::PrintVariableAndThenFillWithSpaces ( myStringStoreTheOutputLineSectionsHereFinal,
 			_OUTPUT_LINE__1_SECTION_4_GANADOR, fourthFinalShortTotalCharactersSection,
 			printOutToConsole /* Print to console */, printOutToTextFile /* Print to Text File */,
-            false /* new line at the beginning */, true /* new line at the end */ );
+            false /* new line at the beginning */, true /* new line at the end */, false /*padTextToTheRightOrFalseISLeft*/);
 
 }//End Method
 
@@ -1602,7 +1600,7 @@ Player* CardManager::CompareCards( Player &myP1, Player &myP2, std::vector < Car
 
 		// ( sortP1CardsOrder > 0 ) : Means: 'Sort Asc'
 		//
-		UtilFunctions::SortVectorOfPointerToCards( myP1PtrCards, ( sortP1CardsOrder > 0 ) );
+		CardManager::SortVectorOfPointerToCards( myP1PtrCards, ( sortP1CardsOrder > 0 ) );
 
 	}//End if
 	//
@@ -1613,7 +1611,7 @@ Player* CardManager::CompareCards( Player &myP1, Player &myP2, std::vector < Car
 
 		// ( sortP2CardsOrder > 0 ) : Means: 'Sort Asc'
 		//
-		UtilFunctions::SortVectorOfPointerToCards( myP2PtrCards, ( sortP2CardsOrder > 0 ) );
+		CardManager::SortVectorOfPointerToCards( myP2PtrCards, ( sortP2CardsOrder > 0 ) );
 
 	}//End if
 
@@ -2244,7 +2242,7 @@ void CardManager::SetHandAndHandTypeAttributesForRoyalFlush( Player &myPlayer )
 	//	 			.1.1-	Player myPlayer:		Card* (& myP1PtrCards)[ _MAX_CARD_PER_HAND_COUNT ]
 	//						Sort Cards (Desc)
 	//
-	UtilFunctions::SortCards( *myPtrHandDefinitionCards, false );
+	CardManager::SortCards( *myPtrHandDefinitionCards, false );
 	//
 	//	 				.1.1.1-	Copy this array to:  CARDS that 'define the Hand'.
 	//
@@ -2355,7 +2353,7 @@ void CardManager::SetHandAndHandTypeAttributesForStraightFlush( Player &myPlayer
 	//	 			.1.1-	Player myPlayer:		Card* (& myP1PtrCards)[ _MAX_CARD_PER_HAND_COUNT ]
 	//						Sort Cards (Desc)
 	//
-	UtilFunctions::SortCards( *myPtrHandDefinitionCards, false );
+	CardManager::SortCards( *myPtrHandDefinitionCards, false );
 	//
 	//	 				.1.1.1-	Copy this array to:  CARDS that 'define the Hand'.
 	//
@@ -2554,7 +2552,7 @@ void CardManager::SetHandAndHandTypeAttributesForFourOfAKind( Player &myPlayer )
 	//
 	//	Compare, and STORE THE RESULT inside the VECTOR:	'myVectorRefToHandNotDefinitionCards'
 	//
-	UtilFunctions::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
+	CardManager::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
 
 
 	//	Hand Type Attributes
@@ -2664,7 +2662,7 @@ const bool CardManager::VerifyFullHouse( Hand & myHand )
 			//
 			std::vector< Card* > myVector3Result;
 			//
-			UtilFunctions::ConcatenateTwoVectorsAandBAndAddToC( myRepeated3OfAKindPtrCards, myRepeatedPair2OfAKindPtrCards, myVector3Result );
+			CardManager::ConcatenateTwoVectorsAandBAndAddToC( myRepeated3OfAKindPtrCards, myRepeatedPair2OfAKindPtrCards, myVector3Result );
 			//
 			//
 			// Save inside the Hand: the CARD*s
@@ -2820,7 +2818,7 @@ void CardManager::SetHandAndHandTypeAttributesForFlush( Player &myPlayer )
 	//	 			.1.1-	Player myPlayer:		Card* (& myP1PtrCards)[ _MAX_CARD_PER_HAND_COUNT ]
 	//						Sort Cards (Desc)
 	//
-	UtilFunctions::SortCards( *myPtrHandDefinitionCards, false );
+	CardManager::SortCards( *myPtrHandDefinitionCards, false );
 	//
 	//	 				.1.1.1-	Copy this array to:  CARDS that 'define the Hand'.
 	//
@@ -2918,7 +2916,7 @@ void CardManager::SetHandAndHandTypeAttributesForStraight( Player &myPlayer )
 	//	 			.1.1-	Player myPlayer:		Card* (& myP1PtrCards)[ _MAX_CARD_PER_HAND_COUNT ]
 	//						Sort Cards (Desc)
 	//
-	UtilFunctions::SortCards( *myPtrHandDefinitionCards, false );
+	CardManager::SortCards( *myPtrHandDefinitionCards, false );
 	//
 	//	 				.1.1.1-	Copy this array to:  CARDS that 'define the Hand'.
 	//
@@ -3115,7 +3113,7 @@ void CardManager::SetHandAndHandTypeAttributesForThreeOfAKind( Player &myPlayer 
 	//
 	//	Compare, and STORE THE RESULT inside the VECTOR:	'myVectorRefToHandNotDefinitionCards'
 	//
-	UtilFunctions::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
+	CardManager::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
 
 
 	//	Hand Type Attributes
@@ -3207,7 +3205,7 @@ const bool CardManager::VerifyTwoPairs( Hand & myHand )
 			//
 			std::vector< Card* > myVector3Result;
 			//
-			UtilFunctions::ConcatenateTwoVectorsAandBAndAddToC( myRepeatedPair1PtrCards, myRepeatedPair2PtrCards, myVector3Result );
+			CardManager::ConcatenateTwoVectorsAandBAndAddToC( myRepeatedPair1PtrCards, myRepeatedPair2PtrCards, myVector3Result );
 			//
 			//
 			// Save inside the Hand: the CARD*s
@@ -3334,7 +3332,7 @@ void CardManager::SetHandAndHandTypeAttributesForTwoPairs( Player &myPlayer )
 	//
 	//	Compare, and STORE THE RESULT inside the VECTOR:	'myVectorRefToHandNotDefinitionCards'
 	//
-	UtilFunctions::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
+	CardManager::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
 
 
 	//	Hand Type Attributes
@@ -3511,7 +3509,7 @@ void CardManager::SetHandAndHandTypeAttributesForOnePair( Player &myPlayer )
 	//
 	//	Compare, and STORE THE RESULT inside the VECTOR:	'myVectorRefToHandNotDefinitionCards'
 	//
-	UtilFunctions::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
+	CardManager::SetAVectorComparison( (Card* (&) [ _MAX_CARD_PER_HAND_COUNT ]) myReferenceToArrayHandCards, myVectorRefToHandDefinitionCards, myVectorRefToHandNotDefinitionCards, false ); // DIFFERENT Ocurrences <=> Different Elements
 
 
 	//	Hand Type Attributes
@@ -3561,7 +3559,7 @@ void CardManager::SetHandAndHandTypeAttributesForHighCard( Player &myPlayer )
 	//	 			.1.1-	Player myPlayer:		Card* (& myP1PtrCards)[ _MAX_CARD_PER_HAND_COUNT ]
 	//						Sort Cards (Desc)
 	//
-	UtilFunctions::SortCards( *myPtrHandDefinitionCards, false );
+	CardManager::SortCards( *myPtrHandDefinitionCards, false );
 	//
 	//	 				.1.1.1-	Copy this array to:  CARDS that 'define the Hand'.
 	//
@@ -4059,5 +4057,766 @@ CardType* CardManager::GetCardType( const string &cardTypeShortName )
 }//End Method
 
 
+  /********************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
 
+/**
+ * Generic of Generic: Function to copy the contents of any array (of ANY TYPE T1) (i.e: arrayA) into another (i.e: arrayBTarget) (of ANY TYPE T2).
+ */
+template<typename T1, typename T2, std::size_t N>
+void CardManager::CopyArrayAToOtherArrayBGenericTypes(T1(&arrayA)[N], T2(&arrayBTarget)[N])
+{
+
+	for (unsigned int i = 0; i < N; i++)
+	{
+
+		arrayBTarget[i] = arrayA[i];
+
+	}//End for
+
+}//End Function
+
+
+/**
+ * Generic Function to copy the contents of any array (i.e: arrayA) into another (i.e: arrayBTarget).
+ */
+template<typename T, std::size_t N>
+void CardManager::CopyArrayAToOtherArrayB(const T(&arrayA)[N], T(&arrayBTarget)[N])
+{
+
+	for (unsigned int i = 0; i < N; i++)
+	{
+
+		arrayBTarget[i] = arrayA[i];
+
+	}//End for
+
+}//End Function
+
+
+/**
+ * Generic Function to initialize any array to a VALUE.
+ */
+template<typename T, std::size_t N>
+void CardManager::InitializeArrayWithAValue( const T& value, T(&arr)[N] )
+{
+	for (auto& e : arr)
+		e = value;
+
+}//End Function
+
+
+/**
+ * Generic Function to initialize any array to a VALUE.
+ */
+template<typename T, std::size_t N>
+void CardManager::InitializeArrayOfPointersWithNullptr(T* (&arr)[N])
+{
+	for (auto& e : arr)
+		e = nullptr;
+
+}//End Function
+
+
+
+/**
+ * Generic Function to TOKENIZE a string, splitting it into an c-style: ARRAY of STRING.
+ */
+template<std::size_t N /*= 10*/>
+void CardManager::TokenizeStringSplitIntoCArray(const string &line, const char  &delimiter, std::string(&myArrayOfStrings)[N])
+{
+
+	// Necessary variables:
+	//
+	const int lengthLine = line.length();
+	int indexArrayFinal = 0;
+	//
+	// String-Token to assign in every case:
+	//
+	string myString = "";
+
+	// Tokenizing
+	// Loop through the string
+	//
+	for (int i = 0; i < lengthLine; i++)
+	{
+
+		// Add to the String
+		//
+		myString += line[i];
+
+		// Condition to TOKENIZE / SPLIT the Word/String:
+		//
+		if ((line[i] == delimiter) || ((i + 1) == lengthLine))
+		{
+
+			// It found the 'delimiter', => Tokenize:
+			// Add to the array:
+			//
+			myArrayOfStrings[indexArrayFinal] = myString;
+			//
+			// Clean the auxiliary variable:
+			//
+			myString = "";
+			//
+			// Increment Final Array index:
+			//
+			indexArrayFinal++;
+
+		}//End if ( line[ i ] != delimiter )
+
+	}//End For
+
+}//End Method
+
+
+
+/**
+ * It splits a Big array (bigArray)...: into two arrays: arr1  and arr2.
+ * Condition:	_SIZE_BIG_ARRAY >= ( _SIZE_SMALL_ARRAY_1 + _SIZE_SMALL_ARRAY_2 )
+ *
+ * Type of the Array: C-Style Classic array: e.g.:   int[], double[], string[], char[].
+ */
+template<typename T, std::size_t _SIZE_BIG_ARRAY, std::size_t _SIZE_SMALL_ARRAY_1, std::size_t _SIZE_SMALL_ARRAY_2>
+void CardManager::SplitBigArrayIntoTwoArrays(const T(&bigArray)[_SIZE_BIG_ARRAY], T(&arr1)[_SIZE_SMALL_ARRAY_1], T(&arr2)[_SIZE_SMALL_ARRAY_2])
+{
+
+	// Validation:
+	//
+	if (_SIZE_BIG_ARRAY >= (_SIZE_SMALL_ARRAY_1 + _SIZE_SMALL_ARRAY_2))
+	{
+
+		// Split into: FIRST ARRAY
+		//
+		for (unsigned int i = 0; i < _SIZE_SMALL_ARRAY_1; i++)
+		{
+
+			arr1[i] = bigArray[i];
+
+		}//End for
+		//
+		// Split into: SECOND ARRAY
+		//
+		for (unsigned int i = 0; i < _SIZE_SMALL_ARRAY_2; i++)
+		{
+
+			arr2[i] = bigArray[_SIZE_SMALL_ARRAY_1 + i];
+
+		}//End for
+
+	}//End if ( _SIZE_BIG_ARRAY >= ( _SIZE_SMALL_ARRAY_1 + _SIZE_SMALL_ARRAY_2 ) )
+
+}//End Function
+
+
+/************SORTING METHOD**************/
+
+
+/**
+ * Method Overload:
+ * Function to sort Card Object array b[]
+ * according to the order defined by a[]
+*/
+template<const std::size_t arrayLength>
+void CardManager::PairSortObjects(int(&a)[arrayLength], Card* (&myArrayOfCard)[arrayLength], const bool &ascending)
+{
+
+	pair<int, Card*> pairt[arrayLength];
+
+	// Storing the respective array
+	// elements in pairs.
+	//
+	for (unsigned int i = 0; i < arrayLength; i++)
+	{
+		pairt[i].first = a[i];
+		pairt[i].second = myArrayOfCard[i];
+	}
+
+
+	// Sorting the pair array.
+	//
+	sort(pairt, pairt + arrayLength);
+
+
+	// Ascendent: 	1, 100, ...1000000
+	// Desce: 		1000, 100, 1.
+	//
+	if (ascending)
+	{
+
+		// ASCENDING:
+		//
+		// Modifying original arrays
+		//
+		for (unsigned int i = 0; i < arrayLength; i++)
+		{
+			a[i] = pairt[i].first;
+			myArrayOfCard[i] = pairt[i].second;
+		}
+
+	}//End if (ascending)
+	else
+	{
+
+		// DESCENDING:
+		//
+		// Modifying original arrays
+		//
+		for (unsigned int i = 0; i < arrayLength; i++)
+		{
+			a[i] = pairt[arrayLength - 1 - i].first;
+			myArrayOfCard[i] = pairt[arrayLength - 1 - i].second;
+		}
+
+	}//End else
+
+} //End Method
+
+
+///*
+// * Versión v-3.0 usando: OBJETOS: Pair <Card, int>.
+// *
+// * Driver function
+//*/
+//template<std::size_t arrayLength>
+//void mainVersionObjetosEInt( Card* (&myArrayOfCard) [ arrayLength ], int (&a)[ arrayLength ] )
+//{
+//
+//    // Function calling
+//    PairSortObjects(a, myArrayOfCard, false);
+//
+//
+//
+//    for (int i = 0; i < arrayLength; i++)
+//        cout << a[i] << " ";
+//    cout << endl;
+//
+//    for (int i = 0; i < arrayLength; i++)
+//        cout << myArrayOfCard[i] << " ";
+//
+//    cout << endl;
+//
+//    // Names of the Cards:
+//    //
+//    for (int i = 0; i < arrayLength; i++)
+//        cout << myArrayOfCard[i]->GetName() << " ";
+//
+//    cout << endl;
+//
+//}//End Method
+
+
+/*
+ * It Sorts an ARRAY OF CARDS, ACCORDING TO THEIR 'VALUES'.
+ *
+ * Parameters:
+ *
+ * @myArrayOfCard       Array of Cards
+ * @ascending:          TRUE - ASC || FALSE:  Descending.
+ *
+ * Driver function
+*/
+template<const std::size_t arrayLength>
+void CardManager::SortCards(Card* (&myArrayOfCard)[arrayLength], const bool &ascending)
+{
+
+	// Create a (the NUMBERS ARRAY - from the array 'b' = 'myArrayOfCard')
+	//
+	int a[arrayLength];    // = { 1, 2, 3, 4, 5 };    //     a: Values to Sort - array
+	//
+	for (unsigned int i = 0; i < arrayLength; i++)
+	{
+
+		// Populate array
+		//
+		a[i] = myArrayOfCard[i]->GetValue();
+
+	}//End for
+
+
+	// Function calling, to Sort:
+	//
+	PairSortObjects(a, myArrayOfCard, ascending);
+
+}//End Method
+
+
+
+/************SORTING VECTORS of Card* ***************/
+
+/**
+ * Method Overload:
+ * Function to sort Card* Object Vector < Card* >: 	std::vector<Card*> b
+ * according to the order defined by the 'array of int':  a[]
+*/
+template<typename T>
+/*inline*/ void CardManager::PairSortObjectsVector(std::vector <int> &a, std::vector< T* > &myArrayOfPtrToObjects, const bool &ascending, const int &arrayLength)
+{
+
+	// Declaring vector of pairs, to Sort it:
+	//
+	std::vector< pair <int, T*> > pairt;
+
+
+	// Storing the respective array
+	// elements in pairs.
+	//
+	for (int i = 0; i < arrayLength; i++)
+	{
+
+		pairt.push_back(make_pair(a.at(i), myArrayOfPtrToObjects.at(i)));
+
+		//pairt.at( i ).first = a[ i ];
+		//pairt[i].second = myArrayOfCard.at( i );	 // myArrayOfCard[ i ]; is an: Insecure way, because it does not throw OUT-OF-BOUNDS-EXCEPTION if it goes beyond .SIZE()...
+	}
+
+	// Sorting the pair array.
+	//
+	sort(pairt.begin(), pairt.end());
+	//
+	/// Before:	 sort(pairt, pairt + arrayLength);
+
+
+	// Ascendent:   1, 100, ...1000000
+	// Desce:       1000, 100, 1.
+	//
+	if (ascending)
+	{
+
+		// ASCENDING:
+		//
+		// Modifying original arrays
+		//
+		for (int i = 0; i < arrayLength; i++)
+		{
+			a.at(i) = pairt.at(i).first;
+			myArrayOfPtrToObjects.at(i) = pairt.at(i).second; 	// ArrayOfCard[ i ]  = pairt[ i ].second;
+		}
+
+	}//End if (ascending)
+	else
+	{
+
+		// DESCENDING:
+		//
+		// Modifying original arrays
+		//
+		for (int i = 0; i < arrayLength; i++)
+		{
+			a.at(i) = pairt.at(arrayLength - 1 - i).first;
+			myArrayOfPtrToObjects.at(i) = pairt.at(arrayLength - 1 - i).second;
+		}
+
+	}//End else
+
+} //End Method
+
+
+/*
+ * It Sorts a VECTOR of POINTERS TO: CARDS, ACCORDING TO THEIR 'VALUES'.
+ *
+ * Parameters:
+ *
+ * @myArrayOfCard       Vector of Cards
+ * @ascending:          TRUE - ASC || FALSE:  Descending.
+ *
+ * Driver function
+*/
+/*inline*/ void CardManager::SortVectorOfPointerToCards(std::vector< Card* > &myVectorOfCard, const bool &ascending)
+{
+
+	// 1- Size: Vector is DYNAMIC, but at this stage it will not change its size, because we will just reorder it.
+	//
+	const int vectorLength = myVectorOfCard.size();
+
+
+	// 2- Create a (the NUMBERS ARRAY - from the Vector 'b' = 'myVectorOfCard')
+	//
+	std::vector <int> a;    // = { 1, 2, 3, 4, 5 };    //     a: Values to Sort - array
+	//
+	for (int i = 0; i < vectorLength; i++)
+	{
+
+		// Populate array
+		//
+		a.push_back(myVectorOfCard.at(i)->GetValue());
+
+	}//End for
+
+
+	// Function calling
+	//
+	PairSortObjectsVector(a, myVectorOfCard, ascending, vectorLength);
+
+}//End Method
+
+
+/**
+ * Concatenates 'myVector1' + 'myVector2', and populates the result in: 'myVector3'
+ */
+template<typename T>
+void CardManager::ConcatenateTwoVectorsAandBAndAddToC(std::vector< T* > &myVector1, std::vector< T* > &myVector2, std::vector< T* > &myVector3Result)
+{
+
+	myVector3Result.reserve(myVector1.size() + myVector2.size());						 // preallocate memory
+	myVector3Result.insert(myVector3Result.end(), myVector1.begin(), myVector1.end());
+	myVector3Result.insert(myVector3Result.end(), myVector2.begin(), myVector2.end());
+
+}//End Method
+
+/***END*********SORTING VECTORS of Card* ***************/
+
+
+/***END******SORTING METHOD***************/
+
+/************** VECTOR & ARRAYS COPY & interchangeability *****************/
+
+/**
+ *  MY CUSTOM:  Generic function to find an ELEMENT in vector Of PONTERS to another TYPENAME
+ *  ...(i.e.: std::vector < T* >)
+ *
+ *  It returns the ELEMENT found.
+*/
+template <typename T>
+const bool CardManager::SearchInArrayAndReturnObjectFound(const std::vector< T* >  & vecOfElements, T* (&element))
+{
+
+	// Find given element in vector
+	//
+	auto it = std::find(vecOfElements.begin(), vecOfElements.end(), element);
+
+	// Check: Was it Found??
+	//
+	if (it != vecOfElements.end())     // Yes
+	{
+
+		// Return true
+		//
+		return true;
+
+	}
+	else    // No
+	{
+
+		// Not Found, return NOTHING:
+		//
+		return false;
+
+	}// End else of if ( it != myarraySize.end() )     // Yes
+
+}//End Method
+
+
+/**
+ *  MY CUSTOM:  Generic function to find all 'SIMILAR' or 'All DIFFERENT' ELEMENTs
+ * ...in the COMPARISON between:
+ *
+ *      arrayOfElements     a c-style array of:  " T* "
+ *          AND
+ *      myVectorList        vector Of PONTERS to another TYPENAME   ...(i.e.: std::vector < T* >)
+ *
+ *  It returns a VECTOR-LIST of all the ELEMENTs [ Found / NOT Found]:  According to the Booolean Parameter:
+ *
+ *      -> const bool &getDifferentElementsTrueOrGetSimilarOcurrences
+*/
+template <typename T, std::size_t myarraySize>
+void CardManager::SetAVectorComparison(T* (&arrayOfElements)[myarraySize], std::vector < T* > &myVectorList, std::vector < T* > &myResultingVectorList, const bool &getGetSimilarOcurrencesTrueOrDifferentElementsFalse)
+{
+
+	// Set clean  the RESULTING VECTOR LIST:
+	//
+	myResultingVectorList.clear();
+
+	// Search:  SIMILAR or DIFFERENT:
+	//
+	if (getGetSimilarOcurrencesTrueOrDifferentElementsFalse)    // Get the Exact SAME ELEMENTS: Coincidences!
+	{
+
+		// Get the Exact SAME ELEMENTS: Coincidences!
+		//
+		// Iterate over all elements in Vector
+		//
+		for (unsigned int i = 0; i < myarraySize; i++)
+		{
+
+			if (SearchInArrayAndReturnObjectFound(myVectorList, arrayOfElements[i]))   // FOUND IT!
+			{
+
+				// Add to the Vector-List:
+				//
+				myResultingVectorList.push_back(arrayOfElements[i]);
+
+			}//End if
+			// else    // NOT found
+			// {
+			// }//End else
+
+		}//End for
+
+	}//End if
+	else   // Get the DIFFERENT ELEMENTS: Differences!
+	{
+
+		// Get ELEMENTS in A (array) but not in B (Vector)
+		//
+		// Iterate over all elements in Vector
+		//
+		for (unsigned int i = 0; i < myarraySize; i++)
+		{
+
+			if (!SearchInArrayAndReturnObjectFound(myVectorList, arrayOfElements[i]))   // NOT found in VECTOR.
+			{
+
+				// Add to the Vector-List:
+				//
+				myResultingVectorList.push_back(arrayOfElements[i]);
+
+			}//End if
+			// else    // FOUND IT!
+			// {
+			// }//End else
+
+		}//End for
+
+	}//End else of if ( getDifferentElementsTrueOrGetSimilarOcurrences )    // Get the Exact SAME ELEMENTS: Coincidences!
+
+}//End Method
+
+
+/***END*********** VECTOR & ARRAYS COPY & interchangeability *****************/
+
+
+/*******************Printing with Format**********************/
+
+
+/**
+ *  Prints out (to a Variable): a TEXT with a Format, and fillin empty spaces with a desired char
+ *  OUTPUT: std::cout (ALSO AN INPUT)
+ *  Example of HowTo use:   PrintSection(std::cout, "I wrote this...", '*', 15, true);
+ */
+void CardManager::PrintSectionToVariable(std::stringstream &myStringstreamVariable, const std::string &textToPrint, const char &fillSpacesWithChar, const int &totalChars, const bool &padTextToTheRightOrFalseISLeft, const bool &printJumpOfLineAtTheStart, const bool &printJumpOfLineAtTheEnd)
+{
+
+	// Set the preferences for the cout AND Print
+	//
+	myStringstreamVariable << ((printJumpOfLineAtTheStart) ? "\n" : "") << std::setfill(fillSpacesWithChar) << std::setw(totalChars) << ((padTextToTheRightOrFalseISLeft) ? std::right : std::left) << textToPrint << ((printJumpOfLineAtTheEnd) ? "\n" : "");
+
+}//End Method
+
+
+/**
+ *  Prints out (to a Variable): a NUMBER with a Format, and fillin empty spaces with a desired char
+ *  OUTPUT: std::cout (ALSO AN INPUT)
+ *  Example of HowTo use:   PrintSection(std::cout, "I wrote this...", '*', 15, true);
+ */
+void CardManager::PrintSectionToVariable(std::stringstream &myStringstreamVariable, const int &numbersToPrint, const char &fillSpacesWithChar, const int &totalChars, const bool &padTextToTheRightOrFalseISLeft, const bool &printJumpOfLineAtTheStart, const bool &printJumpOfLineAtTheEnd)
+{
+
+	// Set the preferences for the cout AND Print
+	//
+	myStringstreamVariable << ((printJumpOfLineAtTheStart) ? "\n" : "") << std::setfill(fillSpacesWithChar) << std::setw(totalChars) << ((padTextToTheRightOrFalseISLeft) ? std::right : std::left) << numbersToPrint << ((printJumpOfLineAtTheEnd) ? "\n" : "");
+
+}//End Method
+
+
+/***********************/
+
+/**
+ *  Prints out a TEXT with a Format, and fillin empty spaces with a desired char
+ *  OUTPUT: std::cout (ALSO AN INPUT)
+ *  Example of HowTo use:   PrintSection(std::cout, "I wrote this...", '*', 15, true);
+ */
+std::ostream& CardManager::PrintSection(std::ostream& o, const std::string &textToPrint, const char &fillSpacesWithChar, const int &totalChars, const bool &padTextToTheRightOrFalseISLeft, const bool &printJumpOfLineAtTheStart, const bool &printJumpOfLineAtTheEnd)
+{
+
+	// Set the preferences for the cout AND Print
+	//
+	return o << ((printJumpOfLineAtTheStart) ? "\n" : "") << std::setfill(fillSpacesWithChar) << std::setw(totalChars) << ((padTextToTheRightOrFalseISLeft) ? std::right : std::left) << textToPrint << ((printJumpOfLineAtTheEnd) ? "\n" : "");
+
+}//End Method
+
+
+/**
+ *  Prints out a NUMBER with a Format, and fillin empty spaces with a desired char
+ *  OUTPUT: std::cout (ALSO AN INPUT)
+ *  Example of HowTo use:   PrintSection(std::cout, "I wrote this...", '*', 15, true);
+ */
+std::ostream& CardManager::PrintSection(std::ostream& o, const int &numbersToPrint, const char &fillSpacesWithChar, const int &totalChars, const bool &padTextToTheRightOrFalseISLeft, const bool &printJumpOfLineAtTheStart, const bool &printJumpOfLineAtTheEnd)
+{
+
+	// Set the preferences for the cout AND Print
+	//
+	return o << ((printJumpOfLineAtTheStart) ? "\n" : "") << std::setfill(fillSpacesWithChar) << std::setw(totalChars) << ((padTextToTheRightOrFalseISLeft) ? std::right : std::left) << numbersToPrint << ((printJumpOfLineAtTheEnd) ? "\n" : "");
+
+}//End Method
+
+
+/**
+ *  Prints out a certain number (INTEGER),
+ *  ..then fills the rest of the Section with BLANK SPACES.
+ *
+ *  OUTPUT:
+ *  @printOutToConsole      ->   Prints out to Console
+ *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
+ */
+/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+	const int &numberItemToPrint, const int &totalNumberOfChars,
+	const bool &printOutToConsole, const bool &printOutToATextFile,
+	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft)
+{
+
+	// 0- Clean the Buffer stdout:
+	//
+	fflush(stdout); // Will now print everything in the stdout buffer
+	//
+	std::flush(std::cout);
+
+
+	// 1- Declare the variable to store the data (Print to String:)
+	//
+	std::stringstream buffer;
+	//
+	// 2- Print to Variable and to cout, if the parameter = true
+	//
+	PrintSectionToVariable(buffer /*myStringstreamVariable*/, numberItemToPrint /*textToPrint*/, ' ' /*fillSpacesWithChar*/, totalNumberOfChars /*totalChars*/, padTextToTheRightOrFalseISLeft /*padTextToTheRightOrFalseISLeft*/, printNewLineAtTheBeginning /*printJumpOfLineAtTheStart*/, printNewLineAtTheEnd /*printJumpOfLineAtTheEnd*/);
+	//
+	// 3- Copy the result to: 'myOutputString'
+	//
+	myOutputString = buffer.str();
+
+
+	// zz- Print to std::cout CONSOLE OUTPUT:
+	//
+	if (printOutToConsole)
+	{
+
+		// Print to Console:
+		//
+		std::cout << myOutputString << std::flush;
+
+	}//End if ( printOutToConsole )
+	//
+	// Print to a TEXT FILE .txt
+	//
+	// if ( printOutToATextFile )
+	// {
+	// }//End if ( printOutToConsole )
+
+}//End Function
+
+
+/**
+ *  Prints out a certain portion of TEXT (Type: 'char []', 'char *', or 'Char Array').
+ *  ..then fills the rest of the Section with BLANK SPACES.
+ *
+ *  OUTPUT:
+ *  @printOutToConsole      ->   Prints out to Console
+ *  @printOutToATextFile    ->   Prints out to a given TEXT FILE.
+ */
+/*inline*/ void CardManager::PrintVariableAndThenFillWithSpaces(std::string &myOutputString,
+	const std::string &stringItemToPrint, const int &totalNumberOfChars,
+	const bool &printOutToConsole, const bool &printOutToATextFile,
+	const bool &printNewLineAtTheBeginning, const bool &printNewLineAtTheEnd, const bool &padTextToTheRightOrFalseISLeft)
+{
+
+	// 0- Clean the Buffer stdout:
+	//
+	fflush(stdout); // Will now print everything in the stdout buffer
+	//
+	std::flush(std::cout);
+
+
+	// 1- Declare the variable to store the data (Print to String:)
+	//
+	std::stringstream buffer;
+	//
+	// 2- Print to Variable and to cout, if the parameter = true
+	//
+	PrintSectionToVariable(buffer /*myStringstreamVariable*/, stringItemToPrint /*textToPrint*/, ' ' /*fillSpacesWithChar*/, totalNumberOfChars /*totalChars*/, padTextToTheRightOrFalseISLeft /*padTextToTheRightOrFalseISLeft*/, printNewLineAtTheBeginning /*printJumpOfLineAtTheStart*/, printNewLineAtTheEnd /*printJumpOfLineAtTheEnd*/);
+	//
+	// 3- Copy the result to: 'myOutputString'
+	//
+	myOutputString = buffer.str();
+
+
+	// zz- Print to std::cout CONSOLE OUTPUT:
+	//
+	if (printOutToConsole)
+	{
+
+		// Print to Console:
+		//
+		std::cout << myOutputString << std::flush;
+
+	}//End if ( printOutToConsole )
+	//
+	// Print to a TEXT FILE .txt
+	//
+	// if ( printOutToATextFile )
+	// {
+	// }//End if ( printOutToConsole )
+
+}//End Function
+
+
+//EJEMPLO DE INVOCACION Y USO:
+//
+////  1-  Create the Input String:
+////
+//string str = "1g 2h 3y 4u 5i 6i 7i";
+////
+////  2-  Create the Output Char * (or char []):
+////
+//char varCharArrayStoreTheOutputHereFinal33333333 [ maxLongSectionCharArraySize + 1 ];
+////
+//PrintVariableAndThenFillWithSpaces( varCharArrayStoreTheOutputHereFinal33333333, str /*stringItemToPrint*/, 27 /*totalNumberOfChars*/, true, true );
+
+
+//// Uses this: #include <sstream>
+//
+/**
+ * Convert a NUMBER to String
+ */
+template <typename T>
+std::string CardManager::NumberToString(T Number)
+{
+	std::ostringstream ss;
+	ss << Number;
+	return ss.str();
+}//End Function
+
+/***END****************Printing with Format**********************/
+
+
+/********************Miscelaneous**********************/
+
+/*
+ * It returns a Terminator Picture, made with (ANSI) ASCII characters.
+*/
+/*inline*/ const std::string CardManager::GetTerminatorASCII()
+{
+	// Set the String:
+	//
+	string str = "                       ______\n";
+	str += "                     <((((((\\\\\\\n";
+	str += "                     /      . }\\\n";
+	str += "                     ;--..--._|}\n";
+	str += "  (\\                 '--/\\--'  )\n";
+	str += "   \\\\                | '-'  :'|\n";
+	str += "    \\\\               . -==- .-|\n";
+	str += "     \\\\               \\.__.'   \\--._\n";
+	str += "     [\\\\          __.--|       //  _/'--.\n";
+	str += "     \\ \\\\       .'-._ ('-----'/ __/      \\\n";
+	str += "      \\ \\\\     /   __>|      | '--.       |\n";
+	str += "       \\ \\\\   |   \\   |     /    /       /\n";
+	str += "        \\ '\\ /     \\  |     |  _/       /\n";
+	str += "         \\  \\       \\ |     | /        /\n";
+	str += "Terminate \\  \\      \\        /\n";
+
+	return str;
+}//End Procedure
+
+
+/***END**************Miscelaneous**********************/
+
+  /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
 

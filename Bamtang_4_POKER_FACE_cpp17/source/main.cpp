@@ -93,12 +93,15 @@
 
 ///////////////quedee ennnnnnnnnnn:
 //
-//	1-	Poner todas las funciones de "util_functions.hpp" en: "card_manager.hpp": para evitar el bug del LINKER (1900), y (2100)
+//	1-	Poner todas las funciones de "util_functions.hpp" en: "card_manager.hpp": para evitar el bug del LINKER (1900), y (2100)	---listo!
+
+//	2-	Quede en: Ahora ponerlo con VERDADERO TRATAMIENTO de FILE.TXT:
+//		.1-	Reading:	(si no existe decirlo y ABORTAR EJECUCION)
+//		.2-	WRITING:	(si no existe: CREARLO y escribir allí todo tu OUTPUT).
 
 //
 /*******************************************************************************/
-#include "util_functions.hpp"
-//
+
 #include "card.hpp"
 #include "card_manager.hpp"
 #include "card_type.hpp"
@@ -238,7 +241,7 @@ int main()
 	// Pause Console:
 	//
 	std::cout << "\n\n\nBy: Alejandro E. Almarza Martin\n\n";
-	std::cout << UtilFunctions::GetTerminatorASCII() << endl;
+	std::cout << CardManager::GetTerminatorASCII() << endl;
 	std::cout << "\nPress the <ENTER> key to Terminate the Program.";
 	// Pause:
 	//

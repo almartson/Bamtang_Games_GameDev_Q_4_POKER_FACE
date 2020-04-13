@@ -143,8 +143,6 @@
     <ClInclude Include="source\hand_type.hpp" />
     <ClInclude Include="source\player.hpp" />
     <ClInclude Include="source\test_functions.hpp" />
-    <ClInclude Include="source\util_functions.cpp" />
-    <ClInclude Include="source\util_functions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
