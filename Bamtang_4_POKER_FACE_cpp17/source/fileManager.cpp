@@ -69,10 +69,10 @@ TCHAR* StringToTCHAROptimum( const std::string &myString )
 /**
  * Opens and then CLoses a File for Testing: does it exist?
  */
-bool ValidateAlreadyOpenFileNotClosing( std::fstream &myfile )
+bool ValidateAlreadyOpenFileNotClosing( std::fstream &myFile )
 {
 
-	if (myfile.is_open())
+	if (myFile.is_open())
 	{
 
 		//myfile << "\n";
@@ -92,10 +92,10 @@ bool ValidateAlreadyOpenFileNotClosing( std::fstream &myfile )
 /**
  * Opens a File for Printing out the Games' results.
  */
-bool OpenFileForWritingNotClosing( std::ofstream &myfile )
+bool OpenFileForWritingNotClosing( std::ofstream &myFile )
 {
 
-	if (myfile.is_open())
+	if (myFile.is_open())
 	{
 		//myfile << "\n";
 
@@ -116,12 +116,12 @@ bool OpenFileForWritingNotClosing( std::ofstream &myfile )
 /**
  * Opens a File for Printing out the Games' results.
  */
-bool CloseFileForWriting( std::ofstream &myfile )
+bool CloseFileForWriting( std::ofstream &myFile )
 {	
 
-	if (myfile.is_open())
+	if (myFile.is_open())
 	{
-		myfile.close();
+		myFile.close();
 
 		return true;
 
@@ -281,9 +281,13 @@ for( std::string line; getline( input, line ); )
 /**
  * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
  * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
+ *
+ *	NOTE:
+ *	1-	inputFile MUST HAVE BEEN PREVIOUSLY INITIALIZED WITH 'myFileNameForPrintingErrorInfo'
 */
-void OpenReadFileToVectorOfString(std::ifstream &inputFile, std::vector<std::string> &vectorOfStringFromInput)
+void OpenReadFileToVectorOfString(std::ifstream &inputFile, const std::string &myFileNameForPrintingErrorInfo, std::vector<std::string> &vectorOfStringFromInput)
 {
+
 	// Line of Text:
 	//
 	std::string line;
@@ -307,6 +311,12 @@ void OpenReadFileToVectorOfString(std::ifstream &inputFile, std::vector<std::str
 		inputFile.close();
 
 	}//End if (inputFile.is_open())
+	else
+	{
+
+		cout << "\nI/O Error:   Unable to open file for reading: \" " << myFileNameForPrintingErrorInfo << " \".\n";
+
+	}//End else
 
 }//End Procedure
 

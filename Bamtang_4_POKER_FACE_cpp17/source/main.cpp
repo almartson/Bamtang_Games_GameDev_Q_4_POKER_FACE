@@ -1,111 +1,94 @@
-﻿/******************************************************************************/
+﻿/******************************************************************************
+  Bamtang Games Entrance Test.
 
+  Question number 4.
 
-/***************************TODO LIST*************************************/
-/*
- * 0- HOW TO TOKENIZE:
- *
- * 	0.1-	https://www.geeksforgeeks.org/tokenizing-a-string-cpp/
- *
- * 	0.2-	https://stackoverflow.com/questions/53849/how-do-i-tokenize-a-string-in-c
- *
- * 	0.3-	http://www.cplusplus.com/reference/cstring/strtok/
- *
- *	---
- *
- * 1-Empezar con la Logica Real del Juego, en la Clase Estática: card_manager (CardManager).
- *
- * 	.1-	Podría Inicializar tooodooo como ya lo hace actualmente.
- *
- * 	.2-	Luego:
- *
- * 		.1-	Programar:  'ReadGameFromFileAndPlayOneLineP1vsP2( myFile, int lineNumberToReadAndPlayAGame )'
- * 		.2-	A (.1) se le puede poner en un Loop, de manera que ese M'etodo que lo Englobe:
- *
- * 			.1-	Lea cada L'inea del Archivo...
- * 			.2-	Imprima por Pantalla el RESULTADO + Alguna DATA de Prueba (que me sirva a mi).
- *
- *
- *		.3-	Simplificación:
- *
- *			.1-	Dada una entrada type String (i.e.: la LÍNEA DE TEXTO del JUEGO).
- *
- *				.1-	Verificar para cada PLAYER <P1, P2>:
- *
- *				{
- *					.1-	Qué MANO (HAND) tiene?  <Identificar el HAND_TYPE, según Algoritmos que estén
- *
- *						BUSCANDO PATRONES>.
- *
- *
- *					.2-	ACÁ QUEDEEEEEEEEEE!!
- *
- *					LISTO
- *					_____
- *
- *					1-	VERIFICAR	ROYAL 		FLUSH
- *					2-	VERIFICAR	STRAIGHT 	FLUSH
- *
- *					FALTA: (voy por...)
- *					_____
- *
- *					3-	VERIFICAR	FOUR OF A KIND
- *					...
- *					y el resto (HASTA llegar a HIGH CARD).
- *
- *			SetHandAndHandTypeAttributesForFourOfAKind	ACAAAAAAAAAQUEDEEEEEEEEEEEE
- *
- *
- *				}
- *
- *
- *			NOTA:	Deseo usar 40 líneas para el Resultado de P1, 40 para P2 y separarlas por 5 líneas
- *			TOTAL:	85 Líneas... para un Juego.
- *
- */
+  4. POKER FACE
 
-///falta:
+  [Spanish original Question:]
 
-//	Invocar todo desde un Métdo GENERALIZADOR, que lo invoque todo desde arriba.............
-//.......puedo usar un ARRAY DE STRINGS,
-//.......en Sustitución de un cada READLINE/* LEE UNA LINEA DEL TEXTO...*/( .TXT INPUT ).
+En esta versión simplificada del juego de Poker, existen 4 tipos de cartas (abreviaciones entre paréntesis):
 
-// ////////DESPUÉS:	CAMBIAR ESE FOR { .... READLINE }
-///////////=> Por =>
-/////////////////////// FOR { READLINE DE osstream, readLine, etc...}
+	Tréboles (C), Espadas (S), Corazones (H) y Diamantes (D).
 
-// LISTO: 	Los PrintWithFormat(...)
+Hay 13 cartas por cada tipo, dando un total de 52 cartas, las cartas ordenadas de menor valor a mayor valor son:
 
-/////->>>>>>>>>>Solo falta:  EL Mtodo General que LOS ENSAMBLA E IMPRIME TODO EL "OUTPUT GENERALIZADO".
+	2, 3, 4, 5, 6, 7, 8, 9, 10 (T), Jack (J), Reina (Q), Rey (K), Ace (A).
 
-//-----quede eeeeeeeennnnnnn:
+Una mano consiste de 5 cartas. Existen 10 clases de manos, ordenadas de menor a mayor son:
 
-////////CABECERA DE TODO OUTPUT::::::::::::---listo
+	1-	HIGH CARD: El valor de la carta de mayor valor
+	2-	ONE PAIR: Dos cartas del mismo valor (un par)
+	3-	TWO PAIRS: Dos pares diferentes.
+	4-	THREE OF A KIND: Tres cartas del mismo valor
+	5-	STRAIGHT: Todas las cartas son valores consecutivos
+	6-	FLUSH: Todas las cartas son del mismo tipo
+	7-	FULL HOUSE: Tres cartas del mismo valor y un par
+	8-	FOUR OF A KIND: Cuatro cartas del mismo valor
+	9-	STRAIGHT FLUSH: Todas las cartas son valores consecutivos del mismo tipo
+	10-	ROYAL FLUSH: 10, Jack, Queen, King, Ace, del mismo tipo
 
-//1- EMBELLECER MAS LA TABLA: TOTALES	---listo!
+Si dos jugadores tienen manos de la misma clase entonces la mano que esta conformada por cartas de mayor valor gana;
+por ejemplo un par de ochos le gana a un par de cincos (ver ejemplo 1 más abajo).
 
-//2- poNERLE nombres de cartas en espanol: ATRIBUTO EN CARD (y  #defines con cada nombre +
-//.......ocnstructor + get, etc). SINGULAR Y PLURAL	---listo!
+Si aun así hay empate, por ejemplo, ambos jugadores tiene un par de reinas, entonces las cartas de mayor valor de cada mano
+son comparadas (ver ejemplo 4 de abajo);
+si las cartas de mayor valor son iguales, las cartas que le siguen de mayor valor son comparadas, y así sucesivamente.
 
-//3- IDEM CON:  CARD TYPE su Nombre en ESPANOL LITERAL (largo)	---listo!
+Ejemplos:
 
-//zz-	POnerlo para .TXT INPUT y OUTPUT otro .TXT..........
+Mano        Jugador 1       Jugador 2           Ganador
 
-///////////////quedee ennnnnnnnnnn:
+1       5H 5C 6S 7S KD      2C 3S 8S 8D TD      Jugador 2
+		Par de cincos       Par de ochos
+2       5D 8C 9S JS AC      2C 5C 7D 8S QH      Jugador 1
+		HIGH CARD Ace       HIGH CARD Queen
+3       2D 9C AS AH AC      3D 6D 7D TD QD      Jugador 2
+		Tres Aces           FLUSH de diamantes
+4       4D 6S 9H QH QC      3D 6D 7H QD QS      Jugador 1
+		Par de reinas       Par de reinas
+		Máxima carta 9      Máxima carta 7
+5       2H 2D 4C 4D 4S      3C 3D 3S 9S 9D      Jugador 1
+		Full House de 4     Full House de 3
+
+Verifica tu código con el archivo de jugadas: poker.txt, el cual contiene 1000 manos aleatorias
+entregadas a dos jugadores. Cada línea del archivo contiene 10 cartas (separadas por un solo espacio):
+ las primeras cinco son las cartas del jugador 1 y el resto son las del jugador 2.
+De las 1000 manos en este archivo el jugador 1 gana 376 manos.
+
+Crea todas las funciones necesarias para resolver este problema de una modo genérico
+ (por ejemplo: con otro archivo de jugadas).
+Asume que todas las manos son válidas, sin caracteres inválidos ni cartas repetidas, que las manos
+no están ordenadas y que por cada línea existe un claro vencedor.
+
+(6 PUNTOS)
+
+	NOTAS del desarrollador:
+
+	1-	El tipo de Póker acá referido es la variante conocida como: 'Texas Póker'.
+	2-	Los archivos de texto, tanto de ENTRADA (i.e.: INPUT) como de SALIDA (i.e.: OUTPUT) se trabajarán
+desde la misma ubicación del archivo (.exe) ejecutable.
+	3-	El nombre del archivo de texto de ENTRADA es una variable GLOBAL, definida más abajo bajo el Nombre '_INPUT_FILE_SHORT_NAME'
+
+*******************************************************************************
+   By:	 Alejandro E. Almarza Martín
+*******************************************************************************
+*******************************************************************************/
+/***************************TODO LIST******************************************
+ *
+ * 1- To clean the Code.
+ * 2- Everything the Main Statement asked for, is already done.
+ *
+ ******************************************************************************/
+/*************************************Global Constants******************************************/
+
+#define _INPUT_FILE_SHORT_NAME		"poker.txt"
+#define _OUTPUT_FILE_SHORT_NAME		"pokerOutput.txt"
+
+/***END**********************************Global Constants******************************************/
+
+// OOP - UML data structure design:
 //
-//	1-	Poner todas las funciones de "util_functions.hpp" en: "card_manager.hpp": para evitar el bug del LINKER (1900), y (2100)	---listo!
-
-//	2-	Quede en: Ahora ponerlo con VERDADERO TRATAMIENTO de FILE.TXT:
-//		.2-	WRITING:	(si no existe: CREARLO y escribir allí todo tu OUTPUT).	---listo!
-
-//		SOLO FALTA: La lectura....................... desde una RUTA ESPECIFICA... (descargar codigo de internet de ejemplo., actualmente
-//............no cuento con un ejemplo mio.)
-
-//		.1-	Reading:	(si no existe decirlo y ABORTAR EJECUCION)
-
-//
-/*******************************************************************************/
-
 #include "card.hpp"
 #include "card_manager.hpp"
 #include "card_type.hpp"
@@ -113,14 +96,16 @@
 #include "hand_type.hpp"
 #include "player.hpp"
 //
-// File Management:
+// File Management & Utility Functions:
 //
 #include "fileManager.h"
 //
 // Includes with Test-Purposes:
 //
-///// it in [ "card_manager.hpp" ]:	 #i... "test_functions.hpp"
-
+///// #include "test_functions.hpp"
+//
+// Other tools:
+//
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -137,6 +122,8 @@ string CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH[_TOTAL_H
 string CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL[_TOTAL_HAND_TYPES]; // = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
 
 
+// This was the DEBUG, PRINT-TO-CONSOLE Version. D not un-comment. Just in case there is anything to be debuged.
+//
 //int main()
 //{
 //
@@ -270,7 +257,9 @@ string CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL[_TOTAL_H
 //}
 
 
-
+/**
+ * Main Function Call.
+ */
 int main()
 {
 
@@ -278,19 +267,19 @@ int main()
 	std::cout << "\n***************************************\n\n";
 	std::cout << "Bamtang Games Entrance Test:\nANSWER TO THE C++ GAME DEV EXAM QUESTION: __4__ POKER FACE.\n\n";
 	std::cout << "OBSERVATIONs:\n\n";
-	std::cout << "1-   The INPUT and OUTPUT Path of the Files (String) are HARDCODED, meaning that It is inside the Script: main.cpp.\n\n";
-	std::cout << "2-   The Files will be read and written in the SAME PATH that this executable (.exe) has.\n";
+	std::cout << "1-   The INPUT and OUTPUT Path of the Files (String) are HARDCODED, meaning that It is inside the Script: main.cpp\n (as precompiled #define CONSTANTS).\n\n";
+	std::cout << "2-   The Files will be read and written in the SAME PATH where this executable (.exe) is.\n";
 	std::cout << "\n---\n\n";
 	//
 	// 1-	INPUT:	Name of the File to Read from:
 	//
-	const string _inputFileName = "poker.txt";
+	const string _inputFileName		= _INPUT_FILE_SHORT_NAME;
 
 	// 2-	OUTPUT: Name of the File to Write the Output of the Game to:
 	//
-	const string _outputFileName = "pokerOutput.txt";
+	const string _outputFileName	= _OUTPUT_FILE_SHORT_NAME;
 	//
-	std::cout << "3-   INPUT FILE to find and read the games from: ->       " << _inputFileName << "\n\n";
+	std::cout << "3-   INPUT FILE to find and read the games from:   ->  -> " << _inputFileName << "\n\n";
 	std::cout << "4-   OUPUT FILE to create and write the games results: -> " << _outputFileName << "\n";
 	std::cout << "\n---\n";
 	std::cout << "\n03/2020\n\n***************************************\n";
@@ -312,10 +301,9 @@ int main()
 
 	// Print Test Data to see if the Structure of the UML - Classes and Objects are being loaded correctly:
 	//
-//	PrintGameObjectsData();
+	///// Debug Print-to-Console: // PrintGameObjectsData();
 	//
 	std::cout << std::flush;
-
 
 
 	// 3- Card Manager: Logic of the Game: Construct the 'Hand' and 'HandType' Objects Infraestructure:
@@ -329,16 +317,16 @@ int main()
 	std::vector<std::string> myGameInputLines;
 	myGameInputLines.clear();
 	//
-	OpenReadFileToVectorOfString(_inputFile, myGameInputLines);
+	OpenReadFileToVectorOfString( _inputFile, _inputFileName, myGameInputLines );
 
 	// Size of that Array:
 	//
 	const int inputLinesArraySize = myGameInputLines.size();
 
 
-	//////////////
+	//////Main Function Call////////
 	//
-	// Call the Main Function to Play the Game:		(Console Version	OUTPUT).
+	// Debug:   Call the Main Function to Play the Game:		(Console Version	OUTPUT).
 	//
 	///// Debug version: CardManager::PlayTheGameConsoleVersion ( myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2 );
 	//
@@ -350,8 +338,14 @@ int main()
 		CardManager::PlayTheGameOutputToFileVersion(myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2, _outputFileName);
 
 	}//End if (inputLinesArraySize > 0)
+	else
+	{
+
+		std::cout << "\n  *   There was an problem when trying to get the Game Lines (Hands of Cards) from the input File...\n  ->  Please check that the File is in the same PATH as the (executable) .exe, and that it contains some lines of data, to be read.\n";
+
+	}//End else
 	//
-	/////////////
+	///END///Main Function Call////////
 
 
 	// Pause Console:
@@ -359,6 +353,7 @@ int main()
 	std::cout << "\n\n\nBy: Alejandro E. Almarza Martin\n\n";
 	std::cout << CardManager::GetTerminatorASCII() << endl;
 	std::cout << "\nPress the <ENTER> key to Terminate the Program.";
+	//
 	// Pause:
 	//
 	cin.get();

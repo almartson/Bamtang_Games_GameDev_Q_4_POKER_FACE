@@ -39,7 +39,10 @@ const std::string GetFullCurrentFullPathName( const std::string &fileName );
 /**
  * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
  * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
+ *
+ *	NOTE:
+ *	1-	inputFile MUST HAVE BEEN PREVIOUSLY INITIALIZED WITH 'myFileNameForPrintingErrorInfo'
 */
-void OpenReadFileToVectorOfString(std::ifstream &inputFile, std::vector<std::string> &vectorOfStringFromInput);
+void OpenReadFileToVectorOfString(std::ifstream &inputFile, const std::string &myFileNameForPrintingErrorInfo, std::vector<std::string> &vectorOfStringFromInput);
 
 #endif
