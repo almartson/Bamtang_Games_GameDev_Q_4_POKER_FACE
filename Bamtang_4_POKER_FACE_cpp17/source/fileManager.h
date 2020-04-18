@@ -4,8 +4,9 @@
 #include <TCHAR.H> // Implicit or explicit include
 #include <windows.h>
 #include <tchar.h>
+#include <vector>
 
-// Problem: COnversion between TCHAR and string:  Another soluton is:
+// Problem: Conversion between TCHAR and string:  Another soluton is:
 //
 //#ifndef UNICODE
 //	typedef std::string String
@@ -34,5 +35,11 @@ bool CloseFileForWriting( std::ofstream &myfile );
 
 bool OpenFileForWritingOrCreateIt( const std::string &fileName );
 const std::string GetFullCurrentFullPathName( const std::string &fileName );
+
+/**
+ * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
+ * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
+*/
+void OpenReadFileToVectorOfString(std::ifstream &inputFile, std::vector<std::string> &vectorOfStringFromInput);
 
 #endif

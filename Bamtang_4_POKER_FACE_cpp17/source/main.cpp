@@ -113,11 +113,16 @@
 #include "hand_type.hpp"
 #include "player.hpp"
 //
+// File Management:
+//
+#include "fileManager.h"
+//
 // Includes with Test-Purposes:
 //
 ///// it in [ "card_manager.hpp" ]:	 #i... "test_functions.hpp"
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -132,24 +137,164 @@ string CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH[_TOTAL_H
 string CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL[_TOTAL_HAND_TYPES]; // = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
 
 
+//int main()
+//{
+//
+//	std::cout << "\n***************************************\nBy: Alejandro E. Almarza Martin";
+//	std::cout << "\n***************************************\n\n";
+//	std::cout << "Bamtang Games Entrance Test:\nANSWER TO THE C++ GAME DEV EXAM QUESTION: __4__ POKER FACE.\n\n";
+//	std::cout << "OBSERVATIONs:\n\n";
+//	std::cout << "1-   The INPUT and OUTPUT Path of the Files (String) are HARDCODED, meaning that It is inside the Script: main.cpp.\n\n";
+//	std::cout << "2-   The Files will be read and written in the SAME PATH that this executable (.exe) has.\n";
+//	std::cout << "\n---\n\n";
+//	//
+//	// 1-	INPUT:	Name of the File to Read from:
+//	//
+//	const string _inputFileName = "poker.txt";
+//
+//	// 2-	OUTPUT: Name of the File to Write the Output of the Game to:
+//	//
+//	const string _outputFileName = "pokerOutput.txt";
+//	//
+//	std::cout << "3-   INPUT FILE to find and read the games from: ->       " << _inputFileName << "\n\n";
+//	std::cout << "4-   OUPUT FILE to create and write the games results: -> " << _outputFileName << "\n";
+//	std::cout << "\n---\n";
+//	std::cout << "\n03/2020\n\n***************************************\n";
+//	std::cout << "\nVerbose OUTPUT:\n";
+//
+//	// 1- Players:
+//	//	P1
+//	//
+//	Player myPlayerP1(1);
+//	//
+//	//	P2
+//	//
+//	Player myPlayerP2(2);
+//
+//	// 2- Card Manager: Logic of the Game: Construct the Card and CardType Objects Infraestructure:
+//	//
+//	CardManager::InitializeGameObjectsToPlayLater(myPlayerP1, myPlayerP2);
+//
+//
+//	// Print Test Data to see if the Structure of the UML - Classes and Objects are being loaded correctly:
+//	//
+////	PrintGameObjectsData();
+//	//
+//	std::cout << std::flush;
+//
+//
+//
+//	// 3- Card Manager: Logic of the Game: Construct the 'Hand' and 'HandType' Objects Infraestructure:
+//	//
+////	const string myGameStringLine1 = "5H 5C 6S 7S KD 2C 3S 8S 8D TD";
+////	const string myGameStringLine1 = "5D 8C 9S JS AC 2C 5C 7D 8S QH";
+////	const string myGameStringLine1 = "2D 9C AS AH AC 3D 6D 7D TD QD";
+////	const string myGameStringLine1 = "4D 6S 9H QH QC 3D 6D 7H QD QS";
+////	const string myGameStringLine1 = "2H 2D 4C 4D 4S 3C 3D 3S 9S 9D";
+////	const string myGameStringLine1 = "7H 7D KC KD 2S 8H 8D KH KS 2D";	// P2: EMPATE,Gana por valor de SEGUNDO PAR...
+////	const string myGameStringLine1 = "7H 7D KC KD 2S 7S 7C KH KS 3S";	// P2: EMPATE, resuelve comparando la ULTIMA CARTA: 'NOT DEFINITION'.
+////	const string myGameStringLine1 = "7H 7D KC KD 2S 7S 7C KH KS 2D";	// EMPATE TWO PAIRS completo
+////	const string myGameStringLine1 = "TD JD QD KD AD 9H TH JH QH KH";	// P1: ROYAL VS STRAIGHT (FLUSHES ambos).
+////	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3S 4H 5C 6D";	// P1: FOUR OF A KIND VS STRAIGHT normal.
+////	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3D 4D 5D 6C";	// P1: FOUR OF A KIND VS STRAIGHT normal,
+//	//
+//	//////...PERO CON CARTAS de IGUAL TIPO... sigue siend un STRAIGHT Normal.
+//	//
+////	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3D 4D 5D 6D";	// P2: FOUR OF A KIND VS STRAIGHT FLUSH
+//
+//
+//	// Input Game Lines:
+//	//
+//	const string myGameInputLines[] =
+//	{
+//
+//		"2H 2D 4C 4D 4S 3C 3D 3S 9S 9D",
+//		"7H 7D KC KD 2S 8H 8D KH KS 2D",	/*// P2: EMPATE,Gana por valor de SEGUNDO PAR...*/
+//		"7H 7D KC KD 2S 7S 7C KH KS 3S",	/*// P2: EMPATE, resuelve comparando la ULTIMA CARTA: 'NOT DEFINITION'.*/
+//		"7H 7D KC KD 2S 7S 7C KH KS 2D",	/*// EMPATE TWO PAIRS completo*/
+//		"TD JD QD KD AD 9H TH JH QH KH",	/*// P1: ROYAL VS STRAIGHT (FLUSHES ambos).*/
+//		"7H 7D 7S 7C 2S 2D 3S 4H 5C 6D",	/*// P1: FOUR OF A KIND VS STRAIGHT normal.*/
+//		"7H 7D 7S 7C 2S 2D 3D 4D 5D 6C",	/*// P1: FOUR OF A KIND VS STRAIGHT normal,
+//		//
+//		//////...PERO CON CARTAS de IGUAL TIPO... sigue siend un STRAIGHT Normal.
+//		//*/
+//		"7H 7D 7S 7C 2S 2D 3D 4D 5D 6D"		/*// P2: FOUR OF A KIND VS STRAIGHT FLUSH*/ ,
+//
+//		"5H 5C 6S 7S KD 2C 3S 8S 8D TD",
+//		"5D 8C 9S JS AC 2C 5C 7D 8S QH",
+//		"2D 9C AS AH AC 3D 6D 7D TD QD",
+//		"4D 6S 9H QH QC 3D 6D 7H QD QS",
+//		//
+//		"5D 8C 9S JS AC 2D 3S 4H 5C 6D",
+//		"2D 3S 4H 5C 6D 2C 5C 7D 8S QH",
+//		//
+//		"2C 5C 7D 8S QC 9H TH JH QH KH",
+//		"2C 5C 7D QC 8S 9H TH JH QH KH",
+//		//
+//		"2C 5C 7D 8S QH 9H TH JH QH KH",
+//		"2C 5C 7D 8S QD 9H TH JH QH KH",
+//		"2C 5C 7D 8S QS 9H TH JH QH KH",
+//		//
+//		"2D 3D 4D 5D 6C 7H 7D 7S 7C 2S"		/*// P2: FOUR OF A KIND VS STRAIGHT FLUSH*/
+//
+//	};
+//
+//	// Size of that Array:
+//	//
+//	const int inputLinesArraySize = sizeof( myGameInputLines ) / sizeof( myGameInputLines [0] );
+//
+//
+//	//////////////
+//	//
+//	// Call the Main Function to Play the Game:		(Console Version	OUTPUT).
+//	//
+//	///// Debug version: CardManager::PlayTheGameConsoleVersion ( myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2 );
+//	//
+//	// Call the Main Function to Play the Game:		(Console Version	OUTPUT).
+//	//
+//	CardManager::PlayTheGameOutputToFileVersion(myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2, _outputFileName);
+//	//
+//	/////////////
+//
+//
+//	// Pause Console:
+//	//
+//	std::cout << "\n\n\nBy: Alejandro E. Almarza Martin\n\n";
+//	std::cout << CardManager::GetTerminatorASCII() << endl;
+//	std::cout << "\nPress the <ENTER> key to Terminate the Program.";
+//	// Pause:
+//	//
+//	cin.get();
+//
+//	return 0;
+//}
+
+
+
 int main()
 {
 
 	std::cout << "\n***************************************\nBy: Alejandro E. Almarza Martin";
 	std::cout << "\n***************************************\n\n";
 	std::cout << "Bamtang Games Entrance Test:\nANSWER TO THE C++ GAME DEV EXAM QUESTION: __4__ POKER FACE.\n\n";
-	std::cout << "OBSERVATION: The INPUT and OUTPUT File (String) is HARDCODED, meaning that It is inside the Script: main.cpp.\n";
-	std::cout << "\n03/2020\n\n***************************************\n";
-	std::cout << "\nVerbose OUTPUT:\n";
-
+	std::cout << "OBSERVATIONs:\n\n";
+	std::cout << "1-   The INPUT and OUTPUT Path of the Files (String) are HARDCODED, meaning that It is inside the Script: main.cpp.\n\n";
+	std::cout << "2-   The Files will be read and written in the SAME PATH that this executable (.exe) has.\n";
+	std::cout << "\n---\n\n";
+	//
 	// 1-	INPUT:	Name of the File to Read from:
 	//
-	const string _inputFileName 	= "poker.txt";
+	const string _inputFileName = "poker.txt";
 
 	// 2-	OUTPUT: Name of the File to Write the Output of the Game to:
 	//
-	const string _outputFileName 	= "pokerOutput.txt";
-
+	const string _outputFileName = "pokerOutput.txt";
+	//
+	std::cout << "3-   INPUT FILE to find and read the games from: ->       " << _inputFileName << "\n\n";
+	std::cout << "4-   OUPUT FILE to create and write the games results: -> " << _outputFileName << "\n";
+	std::cout << "\n---\n";
+	std::cout << "\n03/2020\n\n***************************************\n";
+	std::cout << "\nVerbose OUTPUT:\n";
 
 	// 1- Players:
 	//	P1
@@ -175,62 +320,20 @@ int main()
 
 	// 3- Card Manager: Logic of the Game: Construct the 'Hand' and 'HandType' Objects Infraestructure:
 	//
-//	const string myGameStringLine1 = "5H 5C 6S 7S KD 2C 3S 8S 8D TD";
-//	const string myGameStringLine1 = "5D 8C 9S JS AC 2C 5C 7D 8S QH";
-//	const string myGameStringLine1 = "2D 9C AS AH AC 3D 6D 7D TD QD";
-//	const string myGameStringLine1 = "4D 6S 9H QH QC 3D 6D 7H QD QS";
-//	const string myGameStringLine1 = "2H 2D 4C 4D 4S 3C 3D 3S 9S 9D";
-//	const string myGameStringLine1 = "7H 7D KC KD 2S 8H 8D KH KS 2D";	// P2: EMPATE,Gana por valor de SEGUNDO PAR...
-//	const string myGameStringLine1 = "7H 7D KC KD 2S 7S 7C KH KS 3S";	// P2: EMPATE, resuelve comparando la ULTIMA CARTA: 'NOT DEFINITION'.
-//	const string myGameStringLine1 = "7H 7D KC KD 2S 7S 7C KH KS 2D";	// EMPATE TWO PAIRS completo
-//	const string myGameStringLine1 = "TD JD QD KD AD 9H TH JH QH KH";	// P1: ROYAL VS STRAIGHT (FLUSHES ambos).
-//	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3S 4H 5C 6D";	// P1: FOUR OF A KIND VS STRAIGHT normal.
-//	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3D 4D 5D 6C";	// P1: FOUR OF A KIND VS STRAIGHT normal,
+	// Input file:
 	//
-	//////...PERO CON CARTAS de IGUAL TIPO... sigue siend un STRAIGHT Normal.
+	std::ifstream _inputFile(_inputFileName);
 	//
-//	const string myGameStringLine1 = "7H 7D 7S 7C 2S 2D 3D 4D 5D 6D";	// P2: FOUR OF A KIND VS STRAIGHT FLUSH
-
-
-	// Input Game Lines:
+	// Vector of String: The Whole File will be uploaded in this variable:
 	//
-	const string myGameInputLines[] =
-	{
-
-		"2H 2D 4C 4D 4S 3C 3D 3S 9S 9D",
-		"7H 7D KC KD 2S 8H 8D KH KS 2D",	/*// P2: EMPATE,Gana por valor de SEGUNDO PAR...*/
-		"7H 7D KC KD 2S 7S 7C KH KS 3S",	/*// P2: EMPATE, resuelve comparando la ULTIMA CARTA: 'NOT DEFINITION'.*/
-		"7H 7D KC KD 2S 7S 7C KH KS 2D",	/*// EMPATE TWO PAIRS completo*/
-		"TD JD QD KD AD 9H TH JH QH KH",	/*// P1: ROYAL VS STRAIGHT (FLUSHES ambos).*/
-		"7H 7D 7S 7C 2S 2D 3S 4H 5C 6D",	/*// P1: FOUR OF A KIND VS STRAIGHT normal.*/
-		"7H 7D 7S 7C 2S 2D 3D 4D 5D 6C",	/*// P1: FOUR OF A KIND VS STRAIGHT normal,
-		//
-		//////...PERO CON CARTAS de IGUAL TIPO... sigue siend un STRAIGHT Normal.
-		//*/
-		"7H 7D 7S 7C 2S 2D 3D 4D 5D 6D"		/*// P2: FOUR OF A KIND VS STRAIGHT FLUSH*/ ,
-
-		"5H 5C 6S 7S KD 2C 3S 8S 8D TD",
-		"5D 8C 9S JS AC 2C 5C 7D 8S QH",
-		"2D 9C AS AH AC 3D 6D 7D TD QD",
-		"4D 6S 9H QH QC 3D 6D 7H QD QS",
-		//
-		"5D 8C 9S JS AC 2D 3S 4H 5C 6D",
-		"2D 3S 4H 5C 6D 2C 5C 7D 8S QH",
-		//
-		"2C 5C 7D 8S QC 9H TH JH QH KH",
-		"2C 5C 7D QC 8S 9H TH JH QH KH",
-		//
-		"2C 5C 7D 8S QH 9H TH JH QH KH",
-		"2C 5C 7D 8S QD 9H TH JH QH KH",
-		"2C 5C 7D 8S QS 9H TH JH QH KH",
-		//
-		"2D 3D 4D 5D 6C 7H 7D 7S 7C 2S"		/*// P2: FOUR OF A KIND VS STRAIGHT FLUSH*/
-
-	};
+	std::vector<std::string> myGameInputLines;
+	myGameInputLines.clear();
+	//
+	OpenReadFileToVectorOfString(_inputFile, myGameInputLines);
 
 	// Size of that Array:
 	//
-	const int inputLinesArraySize = sizeof( myGameInputLines ) / sizeof( myGameInputLines [0] );
+	const int inputLinesArraySize = myGameInputLines.size();
 
 
 	//////////////
@@ -239,9 +342,14 @@ int main()
 	//
 	///// Debug version: CardManager::PlayTheGameConsoleVersion ( myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2 );
 	//
-	// Call the Main Function to Play the Game:		(Console Version	OUTPUT).
-	//
-	CardManager::PlayTheGameOutputToFileVersion(myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2, _outputFileName);
+	if (inputLinesArraySize > 0)
+	{
+
+		// Call the Main Function to Play the Game:		(.txt Version	OUTPUT).
+		//
+		CardManager::PlayTheGameOutputToFileVersion(myGameInputLines, inputLinesArraySize, myPlayerP1, myPlayerP2, _outputFileName);
+
+	}//End if (inputLinesArraySize > 0)
 	//
 	/////////////
 

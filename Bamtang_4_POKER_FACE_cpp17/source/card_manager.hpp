@@ -4,7 +4,6 @@
 // Default C++ Includes:
 //
 #include <string>
-#include <vector>
 //
 //	From Util_Functions
 /// Does not work in Visual C++:  bits/stdc++.h
@@ -361,17 +360,17 @@ class CardManager
   );
 
   /**
-   * Plays the Game, in Console version.
+   * Plays the Game, reading and writing to .txt Files.
    *
-   * It is Test Version, with just
+   * It is the definitive Final Version:
    *
-   * 	1-	INPUT: 	some HARDCODED Values.
+   * 	1-	INPUT: 	from a .txt File.
    *
-   * 	2-	OUTPUT:	print out to Console.
+   * 	2-	OUTPUT:	print out another .txt File.
    */
   static void PlayTheGameOutputToFileVersion 
   (
-	  const std::string inputLinesArraySize[], const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName
+	  const std::vector< std::string > /*std::string*/ &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName
   );
 
 

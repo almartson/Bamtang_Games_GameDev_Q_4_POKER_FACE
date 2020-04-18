@@ -88,7 +88,7 @@ void CardManager::InitializeGameObjectsToPlayLater(const Player &myPlayerOne, co
   //
   // 2- Different Types of Cards
   //...in the Game (All of them): C, S, H, D.
-  // We may avoid using a For-Loop this time, because there are only four (4) types: S Spades, Diamonds D, Clubs C & Hearts H.
+  // We might avoid using a For-Loop this time, because there are only four (4) types: S Spades, Diamonds D, Clubs C & Hearts H.
   //
   for (int i = 0; i < _MAX_CARD_TYPE_COUNT; i++)
   {
@@ -511,7 +511,7 @@ void CardManager::ConstructPlayerCardCardType(Player &myPlayer, const int &cardI
  * 	2-	OUTPUT:	print out to a file, in the desired destination: 'const std::string &fileName'.
  */
 void CardManager::PlayTheGameOutputToFileVersion
-(const std::string inputLinesArraySize[], const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName)
+(const std::vector< std::string > /*std::string*/ &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName)
 {
 
 	// Flag to say we want OUTPUT to be in a File:
@@ -535,9 +535,9 @@ void CardManager::PlayTheGameOutputToFileVersion
 			// Tell the player where the File will be saved:
 			//
 			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
-			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
+			std::cout << "\n2- You may check the games' results and details in the text file specified before.\n";
 			//
-			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
+			std::cout << "\n3- Please be patient, and wait some seconds until the process is finished.................\n\n";
 			
 			/////////////////////////////////////
 			// Play the Game:
@@ -575,7 +575,7 @@ void CardManager::PlayTheGameOutputToFileVersion
 				// Construct the Player's Hand of Cards with the INPUT LINE of String:
 				//....because EACH LINE is a different GAME:
 				//
-				const string myGameStringLine1 = inputLinesArraySize[i];
+				const string myGameStringLine1 = inputLines[i];
 				//
 				//
 				// Construct P1 and P2 HANDS,
@@ -740,7 +740,7 @@ void CardManager::PlayTheGameOutputToFileVersion
 			//
 			// Print to Console some feedback:
 			//
-			std::cout << "\n\n***************************************\n\nThere are [ " /*<< (nWinO + nWinX + nDraw) <<*/ " ]\npossible games (excluding symmetry), of which \n  * O wins " /*<< nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw <<*/ " are drawn.";
+			//std::cout << "\n\n***************************************\n\nThere are [ " /*<< (nWinO + nWinX + nDraw) <<*/ " ]\npossible games (excluding symmetry), of which \n  * O wins " /*<< nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw <<*/ " are drawn.";
 
 
 			// Close the Text File:
@@ -5138,126 +5138,6 @@ std::string CardManager::NumberToString(T Number)
 	ListAllTicTacToeGames( fileName );
 */
 
-/**
- * Draws the Header of the Board.
-**/
-void DrawBoardHeader(ofstream &myfile)
-{
-
-	myfile << "  N    X 0 X 0 X 0 X 0 X Win\n";
-
-}//End Procedure
-
-/**
-* (Final) Answer to the Test, Question number 3: MICHI  (a.k.a.: TIC TAC TOE).
-*/
-void WriteGameOutputToFile(const string &fileName)
-{
-
-	// Validation: Try to Open an Existing file; or CREATE it if it does ot exist:
-	//
-	bool tryToWriteToFile = OpenFileForWritingOrCreateIt(fileName);
-
-	// Flag Variable to know if the opening file process was successful in the end.
-	//...if it was not: The Output will be displayed on the CMD Console:
-	//
-	bool printFullOutputToConsole = false;
-
-	/***********************************/
-
-	// Variables Initialization:
-
-	//// Necessary Variables:
-	////
-	//char player = _MY_PLAYER_X;
-
-	//// _myArrayMoveBoardPositions	:	Board POSITIONS. It will store the ORDER of MOVES in the Game.	[ 7 1 2 3 4 5]
-	////
-	//int _myArrayMoveBoardPositions[_MY_MOVES_ORDER_ARRAY_SIZE];
-	////
-	//// Initialization:
-	////
-	//InitializeOneDimensionArrayInt10(_myArrayMoveBoardPositions);
-	////
-	//// _myArrayPlayerWhoMoved	:	Name of the Player who made every move.	[ X X O X O X O ]
-	////
-	//char _myArrayPlayerWhoMoved[_MY_MOVES_ORDER_ARRAY_SIZE];
-	////
-	//// Initialization:
-	////
-	//InitializeOneDimensionArrayChar10(_myArrayPlayerWhoMoved);
-	////
-	//// Moves Number: For easy Reference:
-	////
-	//int _myMovesOrder = 1;
-	////
-	//// Initilize Main Board-Array:
-	////
-	//InitializeTwoDimensionArray(_myArrayOfMichiBoardRowsColumns0to2);
-
-	/***********************************/
-
-	// Check to see if we can Open, Create a FIle... or not.
-	//
-	if (tryToWriteToFile)
-	{
-
-		// Declare & Initialize: File Object
-		//
-		ofstream myfile(fileName);
-		//
-		// Validation:
-		//
-		if (OpenFileForWritingNotClosing(myfile))
-		{
-
-			// Tell the player where the File will be saved:
-			//
-			std::cout << "\nNOTES:\n\n1- The File will be created (if it does not currently exist) and saved in this\nPath:\n->\n" << GetFullCurrentFullPathName(fileName) << std::endl;
-			std::cout << "\n2- You may check the 'Tic Tac Toe' (a.k.a. 'Michi') game results and variants in the text file specified before.\n";
-			//
-			std::cout << "\n3- Please be patient, and wait a minute until the process is finished.................\n";
-
-			// Draw Header of Board:
-			//
-			DrawBoardHeader(myfile);
-
-			//// This is the ANSWER TO QUESTION # 3:
-			////
-			//CalculateAllTicTacToeGamesInATextFile(myfile, _myArrayOfMichiBoardRowsColumns0to2, player, _myArrayMoveBoardPositions, _myArrayPlayerWhoMoved, _myMovesOrder);
-			//
-			// Print to Console some feedback:
-			//
-			std::cout << "\n\n***************************************\n\nThere are [ " /*<< (nWinO + nWinX + nDraw) <<*/ " ]\npossible games (excluding symmetry), of which \n  * O wins " /*<< nWinO << "\n  * X wins " << nWinX << "\n  * and " << nDraw <<*/ " are drawn.";
-
-
-			// Close the Text File:
-			//
-			CloseFileForWriting(myfile);
-
-		}//End if
-		else
-		{
-			// Could not open file:
-			//
-			printFullOutputToConsole = true;
-			std::cout << "\n" << "\n->\nCannot open file, file does not exist.\nThere is an I/O issue........";
-
-		}//End else
-
-	}
-	else
-	{
-		// IT COULD NOT CREATE THE FILE.
-		//
-		printFullOutputToConsole = true;
-		std::cout << "\n" << "\n->\nCannot Create the file.\nThere is an I/O issue........";
-
-	}//End else
-
-}//End Procedure
-
 /***END************FILE MANAGER*****************/
 
   /***END*****************UTILITY METHODS that could not be LINKED INSIDE OTHER CLASSES***********************/
-

@@ -1,5 +1,6 @@
 ﻿//MyFunctions.cpp
 
+#include <vector>
 #include <TCHAR.H> // Implicit or explicit include
 #include <windows.h>	// GetFullPathName() function
 #include <tchar.h>
@@ -12,8 +13,8 @@
 
 #include "fileManager.h"
 
-#define BUFSIZE 4096
-#define MAXPATHLEN 512
+#define BUFSIZE		4096
+#define MAXPATHLEN	512
 
 using namespace std;
 
@@ -214,7 +215,7 @@ const std::string GetFullCurrentFullPathName( const std::string &fileName )
 	TCHAR *myFilePathAsTCHAR = StringToTCHAROptimum( fileName );
 
     DWORD  retval=0;
-    BOOL   success; 
+    ///// BOOL   success; 
     TCHAR  buffer[BUFSIZE]=TEXT(""); 
     TCHAR  buf[BUFSIZE]=TEXT(""); 
     TCHAR** lppPart={NULL};
@@ -256,3 +257,105 @@ const std::string GetFullCurrentFullPathName( const std::string &fileName )
     }//End else of if (retval == 0)
 
 }//End Function
+
+
+/*******************READING FILES: Functions********************/
+
+/** 
+ * https://stackoverflow.com/questions/7868936/read-file-line-by-line-using-ifstream-in-c
+
+ Use ifstream to read data from a file:
+
+std::ifstream input( "filename.ext" );
+
+If you really need to read line by line, then do this:
+
+for( std::string line; getline( input, line ); )
+{
+	...for each line in input...
+}
+
+ */
+
+
+/**
+ * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
+ * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
+*/
+void OpenReadFileToVectorOfString(std::ifstream &inputFile, std::vector<std::string> &vectorOfStringFromInput)
+{
+	// Line of Text:
+	//
+	std::string line;
+
+	// Open the File for reading:
+	//
+	if ( inputFile.is_open() )
+	{
+
+		while (std::getline(inputFile, line))
+		{
+
+			// Save each line inside the Vector passed by Reference:
+			//
+			vectorOfStringFromInput.push_back(line);
+
+		}//End While
+
+		// Close the File in the end:
+		//
+		inputFile.close();
+
+	}//End if (inputFile.is_open())
+
+}//End Procedure
+
+
+///**
+// * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
+// * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
+//*/
+//void OpenReadFileToVectorOfString(std::istream &infile, std::string (&inputLinesAsArrayOfString)[], int &arraySize)
+//{
+//	// Auxiliary Variable: Line of Text:
+//	//
+//	std:string line;
+//	//
+//	// Auxiliary variable
+//	//
+//	std::vector<std::string> vectorOfStringFromInput;
+//
+//	// 0- Initialize the array size:
+//	//
+//	arraySize = 0;
+//
+//	// 1- Fill in the Vector and count the number of lines, that way:
+//	//
+//	while (std::getline(infile, line))
+//	{
+//
+//		// Save each line inside the Vector passed by Reference:
+//		//
+//		vectorOfStringFromInput.push_back(line);
+//
+//	}//End
+//
+//	// 2- Update the Array lenght:
+//	//
+//	arraySize = vectorOfStringFromInput.size();
+//
+//	// 3- Pass the Vector contents to the c-array
+//	//
+//	for (int i = 0; i < arraySize; i++)
+//	{
+//
+//		// Save inside the c-simple-array:
+//		//
+//		inputLinesAsArrayOfString[i] = vectorOfStringFromInput.at(i);
+//
+//	}//End for
+//
+//}//End Procedure
+
+
+/***END****************READING FILES: Functions********************/
