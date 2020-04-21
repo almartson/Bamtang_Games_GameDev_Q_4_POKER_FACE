@@ -75,7 +75,7 @@ Card &Card::operator =( Card &c )
 
 
 /**
- * Performs Deep Copy of this Card ('copyThisCard'), inside this Object.
+ * Performs a Deep Copy of this Card ('copyThisCard'), inside this Object.
  */
 void Card::CopyDeepCardInHere( Card &c )
 {
@@ -202,4 +202,3 @@ void Card::SetMyCardType( CardType* myCardType )
 	/////& std::cout << "\n\nINSIDE (AFTER assignment): void Card::SetMyCardType( CardType* myCardType ), WORKING\n";
 
 }//End Method
-

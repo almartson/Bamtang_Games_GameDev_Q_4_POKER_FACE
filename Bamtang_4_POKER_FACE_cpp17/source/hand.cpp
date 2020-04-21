@@ -327,9 +327,3 @@ void Hand::SetMyNotDefinitionCards( Card * (&myNotDefinitionCards)[ _MAX_CARD_PE
 	this->_myNotDefinitionCards.insert( this->_myNotDefinitionCards.end(), &myNotDefinitionCards[0], &myNotDefinitionCards[ _MAX_CARD_PER_HAND_COUNT ] );
 
 }//End Method
-
-
-
-
-
-

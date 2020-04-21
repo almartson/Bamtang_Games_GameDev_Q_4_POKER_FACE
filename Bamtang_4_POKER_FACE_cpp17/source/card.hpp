@@ -15,16 +15,13 @@ using namespace std;
 
 //class CardType;
 
-
 /***************** This Class Definition **********************/
 
 
 class Card
 {
-  
-  private:
 
-  //public:
+  private:
   
   // Attr
   int _id;
@@ -116,8 +113,6 @@ class Card
 
   const CardType &GetMyCardType();
   CardType & GetMyCardTypeNonConst();	// To be used as a variable
-
-  /////void SetMyCardType( const CardType  &myCardType );
   //
   void SetMyCardType( CardType* myCardType );
 
@@ -125,8 +120,6 @@ class Card
    * Performs Deep Copy of this Card ('c'), inside this Object.
    */
   void CopyDeepCardInHere( Card &c );
-  
 
-  
 };
 #endif

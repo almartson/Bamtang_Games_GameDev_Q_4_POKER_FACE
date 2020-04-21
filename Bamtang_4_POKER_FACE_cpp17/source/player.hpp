@@ -30,7 +30,7 @@ class Player
   ////Nope: CardManager * _myCardManager = nullptr;	 //	NULL
 
   /**
-   * tThis Player's Hand of Cards, to Play the Game.
+   * This is the Player's Hand of Cards, to Play the Game.
    */
   Hand * _myHand;                 // = nullptr;
   
@@ -69,8 +69,5 @@ class Player
   Hand*  GetMyHand();
   void SetMyHand( Hand* myHand );
 
-  
-
-  
 };
 #endif

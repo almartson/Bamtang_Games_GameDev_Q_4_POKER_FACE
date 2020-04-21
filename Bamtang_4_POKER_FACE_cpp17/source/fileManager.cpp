@@ -1,11 +1,11 @@
-﻿//MyFunctions.cpp
+﻿//fileManager.cpp
 
 #include <vector>
 #include <TCHAR.H> // Implicit or explicit include
 #include <windows.h>	// GetFullPathName() function
 #include <tchar.h>
 // Not necessary: (just for t_printf()..) #include <stdio.h>
-
+//
 #include <string>
 #include <iostream>
 #include <direct.h>
@@ -143,7 +143,7 @@ bool CloseFileForWriting( std::ofstream &myFile )
  */
 bool OpenFileForWritingOrCreateIt( const std::string &fileName )
 {
-	/////char fileName[ ] = "Informacije.txt";
+
 	fstream appendFileToWorkWith;
 
 	// Open the File, as a test:
@@ -274,7 +274,6 @@ for( std::string line; getline( input, line ); )
 {
 	...for each line in input...
 }
-
  */
 
 
@@ -319,53 +318,6 @@ void OpenReadFileToVectorOfString(std::ifstream &inputFile, const std::string &m
 	}//End else
 
 }//End Procedure
-
-
-///**
-// * Opens a File for Reading Lines of an INPUT Text to an Vector of String:
-// * https://stackoverflow.com/questions/28640272/read-file-into-array-and-return-it-from-a-function-c
-//*/
-//void OpenReadFileToVectorOfString(std::istream &infile, std::string (&inputLinesAsArrayOfString)[], int &arraySize)
-//{
-//	// Auxiliary Variable: Line of Text:
-//	//
-//	std:string line;
-//	//
-//	// Auxiliary variable
-//	//
-//	std::vector<std::string> vectorOfStringFromInput;
-//
-//	// 0- Initialize the array size:
-//	//
-//	arraySize = 0;
-//
-//	// 1- Fill in the Vector and count the number of lines, that way:
-//	//
-//	while (std::getline(infile, line))
-//	{
-//
-//		// Save each line inside the Vector passed by Reference:
-//		//
-//		vectorOfStringFromInput.push_back(line);
-//
-//	}//End
-//
-//	// 2- Update the Array lenght:
-//	//
-//	arraySize = vectorOfStringFromInput.size();
-//
-//	// 3- Pass the Vector contents to the c-array
-//	//
-//	for (int i = 0; i < arraySize; i++)
-//	{
-//
-//		// Save inside the c-simple-array:
-//		//
-//		inputLinesAsArrayOfString[i] = vectorOfStringFromInput.at(i);
-//
-//	}//End for
-//
-//}//End Procedure
 
 
 /***END****************READING FILES: Functions********************/

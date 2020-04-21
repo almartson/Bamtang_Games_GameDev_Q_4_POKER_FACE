@@ -247,9 +247,6 @@ class CardManager
   public:
   
   // Attr
-  //
-  // static const int _id;
-
 
   // Pointers
   //
@@ -271,20 +268,18 @@ class CardManager
   /** List of 'Hand Types' (10) (Avaliable): 		HIGH CARD, ..., ROYAL FLUSH.
   **/
   ///// Substitution: Two Arrays of Names wit Values as [Key = 0....10] (In English and Spanish): 	static HandType (&_myHandTypeList)[ _TOTAL_HAND_TYPES ]; // = nullptr;
-  //
-  //enum myEnum { arrsize = _TOTAL_HAND_TYPES };
 
   /**
    * Array of HAND TYPES, (Printer Friendly). [ ENGLISH ]
    * e.g.: "ONE PAIR of" [ Fives], "HIGH CARD" [ Ace]
    */
-  static string _ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH [ /*arrsize*/ _TOTAL_HAND_TYPES ];	// = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
+  static string _ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH [ _TOTAL_HAND_TYPES ];	// = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
 
   /**
    * Array of HAND TYPES, (Printer Friendly). [ ESPAÑOL ]
    * e.g.: "PAR de" [ Fives], "HIGH CARD" [ Ace]
    */
-  static string _ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL [ /*arrsize*/ _TOTAL_HAND_TYPES ]; 	// = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
+  static string _ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL [ _TOTAL_HAND_TYPES ]; 	// = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
 
   
   // Methods
@@ -296,9 +291,7 @@ class CardManager
   // CardManager();
   //
   ///// Nope, it is STATIC!::  CardManager(const Player &myPlayerOne, const Player &myPlayerTwo);
-  // SUBSTITUTE:  InitializeGameObjectsAndPlayTheGame(const Player &myPlayerOne, const Player &myPlayerTwo);
 
-  
   // Destructors
   //
   ~CardManager();
@@ -370,7 +363,7 @@ class CardManager
    */
   static void PlayTheGameOutputToFileVersion 
   (
-	  const std::vector< std::string > /*std::string*/ &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName
+	  const std::vector< std::string > &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName
   );
 
 
@@ -529,8 +522,7 @@ class CardManager
    *		3-	A DRAW.			[thus RETURNING a NULL POINTER]
    */
   static Player* CompareCards( Player &myP1, Player &myP2, std::vector < Card* > &myP1PtrCards, std::vector < Card* > &myP2PtrCards , const int &sortP1CardsOrder, const int &sortP2CardsOrder );
-  //
-  ///static Player* CompareCards( Player &myP1, Player &myP2, std::vector < Card* > &myP1PtrCards, std::vector < Card* > &myP2PtrCards, Card* (&myPtrToHighDifferentCardP1), Card* (&myPtrToHighDifferentCardP2) );
+
 
   /**
    *	It compares the (Players') CARDs which are classified as 'HAND DEFINITION cards'.
@@ -564,8 +556,6 @@ class CardManager
    * It is based in the: NOT DEFINITION CARDS (the HIGHEST DIFFERENT one... between P1 & P2).
    */
   static void SetFinalOutputOfLine2( Player &myP1, Player &myP2 );
-  //
-  //static void SetFinalOutputOfLine2( Player &myP1, Player &myP2, Card* myP1PtrHighestDifferentCard, Card* myP2PtrHighestDifferentCard );
 
 
   /**
@@ -787,7 +777,9 @@ class CardManager
 
   /**
    * Gets a 'Card' from the CATALOG LIST, given its VALUE and ITS associated CardType SHORT NAME.
-   * For example: CARD VALUE = 9 ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns => 9S
+   *
+   * For example: CARD VALUE = 9 ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns 
+   *		=> Card Object that corresponds to: 9 of SPADES
    */
   static Card* GetCard( const int &cardValue, const string &cardTypeShortName );
 
@@ -795,7 +787,8 @@ class CardManager
    * Gets a 'Card' from the CATALOG LIST, given its CARD SHORT NAME
    * ...and ITS associated CardType SHORT NAME.
    *
-   * For example: CARD SHORT NAME = "9" ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns => 9S
+   * For example: CARD SHORT NAME = "9" ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns 
+   *		=> Card Object that corresponds to: 9 of SPADES
    */
   static Card* GetCard( const string &cardShortName, const string &cardTypeShortName );
 

@@ -83,5 +83,3 @@ const string &CardType::GetLongName()
 	return this->_longName;
 
 }//End Method
-
-

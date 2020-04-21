@@ -104,6 +104,3 @@ void HandType::SetPrinterFriendlyName( const std::string &printerFriendlyName )
 	this->_printerFriendlyName = printerFriendlyName;
 
 }//End Method
-
-
-

@@ -111,8 +111,7 @@ class Hand
    * ...the rest => will be NULL.
   */
   std::vector< Card* > _myDefinitionCardsThatDefineTheHandTypeName; // = nullptr;
-  //
-  ////// Before it was:	 Card * (* _myDefinitionCardsThatDefineTheHandTypeName )[ _MAX_CARD_PER_HAND_COUNT ]; // = nullptr;
+
 
   /**
    * Pointer to (Card *): The HIGHEST {DIFFERENT} Card that makes this Player WIN, LOSE or DRAW:
@@ -146,8 +145,6 @@ class Hand
   */
   std::vector< Card* > _myNotDefinitionCards;	 // = nullptr;
 
-  ///// Before it was:	 Card *  (* _myNotDefinitionCards )[ _MAX_CARD_PER_HAND_COUNT ]; // = nullptr;
-
 
   /** The 'Hand Type' that defines the Global Value, and Name of THIS HAND.
   */
@@ -156,7 +153,7 @@ class Hand
   
   // methods
   public:
-  //
+
   // Constructors
   //
   // As an: Initialization List:
@@ -268,8 +265,7 @@ class Hand
    * 		std::vector< Card* > 	_myDefinitionCardsThatDefineTheHandTypeName
    */
   std::vector< Card* > &GetMyDefinitionCardsThatDefineTheHandTypeName();
-  //
-  ///// Before: 	Card * (* GetArrayOfCardsThatDefineTheHandTypeName()) [ _MAX_CARD_PER_HAND_COUNT ];
+
 
   /**
    * Sets an Array of HAND-DEFINITION-CARDS in the Player's Hand.
@@ -277,8 +273,6 @@ class Hand
    * 		std::vector< Card* > 	_myDefinitionCardsThatDefineTheHandTypeName
    */
   void SetMyDefinitionCardsThatDefineTheHandTypeName( std::vector< Card* > &myDefinitionCardsThatDefineTheHandTypeName );
-  //
-  //// Before: void SetMyDefinitionCardsThatDefineTheHandTypeName( Card * (& myDefinitionCardsThatDefineTheHandTypeName )[ _MAX_CARD_PER_HAND_COUNT ] );
   //
   // Another implementation (Method OVERLOAD):
   //
@@ -291,8 +285,7 @@ class Hand
    * 		std::vector< Card* > 	_myNotDefinitionCards
    */
   std::vector< Card* > &GetMyNotDefinitionCards();
-  //
-  ///// Before: 	Card * (* GetArrayOfNotDefinitionCards()) [ _MAX_CARD_PER_HAND_COUNT ];
+
 
   /**
    * Sets an Array of NOT-DEFINITION-CARDS in the Player's Hand.
@@ -301,12 +294,9 @@ class Hand
    */
   void SetMyNotDefinitionCards( std::vector< Card* > &myNotDefinitionCards );
   //
-  ///// Before it was: 	void SetArrayOfNotDefinitionCards( Card *  (& myNotDefinitionCards )[ _MAX_CARD_PER_HAND_COUNT ] );
-  //
   // Another implementation (Method OVERLOAD):
   //
   void SetMyNotDefinitionCards( Card * (&myNotDefinitionCards)[ _MAX_CARD_PER_HAND_COUNT ] );
-
 
 
 };

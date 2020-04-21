@@ -20,7 +20,7 @@ Player::Player()
 //
 Player::Player(const int &id)
 {
-	// Repaso de Nomenclatura: (*this.) es IGUAL a: this->
+	// Note: (*this.) is EQUAL to: this->
 	//
 	this->_id = id;
 
@@ -88,7 +88,6 @@ void Player::CreatePointersAndAssociatedObjects( const bool &initializeToNewOrNU
 		//
 		this->_myHand = myHand; 	 //&myHand;
 
-
 	}//End if( initializeToNewOrNULL )
 	else
 	{
@@ -147,24 +146,3 @@ void Player::SetMyHand( Hand* myHand )
 	this->_myHand = myHand;
 
 }//End Method
-
-
-
-// Forma de Objeto
-//
-// void Player::Set_myNext(Cosa myNextAux)
-// {
-// 	this->_myNext = &myNextAux;
-
-// }//End Method
-
-
-// // Forma de * Puntero a -> Objeto
-// //
-// void Cosa::Set_myNext(Cosa * myNextAux)
-// {
-// 	this->_myNext = myNextAux;
-
-// }//End Method
-
-

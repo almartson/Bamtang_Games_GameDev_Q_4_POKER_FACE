@@ -9,7 +9,7 @@
 //
 ///// Nope: #include "card_manager.hpp"
 ///// Nope: #include "hand.hpp"
-///// Nope: #include "card.hpp"	 // I could Discard this Include if I Get to use well "card_manager.hpp".
+///// Nope: #include "card.hpp"	 // I could Discard this Include if I Get to use well: "card_manager.hpp".
 
 
 using namespace std;
@@ -42,7 +42,7 @@ class HandType
   // methods
   public:
   //
-  //constructors
+  //Constructors
   //
   HandType(const int &id, const int &hierarchyValue, const string &name, const string &printerFriendlyName);
   //
@@ -74,7 +74,6 @@ class HandType
   /** Name of this Type of Hand	, but in a "Printer-friendly" fashion.
   */
   void SetPrinterFriendlyName( const std::string &printerFriendlyName );
-
 
 };
 #endif

@@ -53,316 +53,312 @@ CardManager::~CardManager()
 void CardManager::InitializeGameObjectsToPlayLater(const Player &myPlayerOne, const Player &myPlayerTwo)
 {
 
-  // 1- Initialization of Array of HAND TYPES:   ARRAY [ HAND Value ] = 'NAME OF HAND IN A PRINTER FRIENDLY FASHION'
-  // 1- ENGLISH
-  //
-  /////CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
-  //
-  const string AUX_ARRAY_ENG [_TOTAL_HAND_TYPES] = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
-  //
-  // Copy the contents of the Const Array inside the Attribute of this Class:
-  //
-  CardManager::CopyArrayAToOtherArrayB( AUX_ARRAY_ENG, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH );
-  //
-  //
-  // 2- SPANISH
-  //
-  //
-  /////CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
-  //
-  const string AUX_ARRAY_ESP [_TOTAL_HAND_TYPES] = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
-  //
-  // Copy the contents of the Const Array inside the Attribute of this Class:
-  //
-  CardManager::CopyArrayAToOtherArrayB( AUX_ARRAY_ESP, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL );
-
-
-  // (*this.) == this->
-  //
-  // 2- Players in the Game:
-  //
-  CardManager::_myPlayerList[ _PLAYER_ONE_ARRAY_INDEX ] = myPlayerOne;
-  //
-  CardManager::_myPlayerList[ _PLAYER_TWO_ARRAY_INDEX ] = myPlayerTwo;
-  //
-  //
-  // 2- Different Types of Cards
-  //...in the Game (All of them): C, S, H, D.
-  // We might avoid using a For-Loop this time, because there are only four (4) types: S Spades, Diamonds D, Clubs C & Hearts H.
-  //
-  for (int i = 0; i < _MAX_CARD_TYPE_COUNT; i++)
-  {
-
-    // Fill in the Attributes:
-    // 1- Types
-    //
-    if ( i == _CARD_TYPE_INDEX_SPADE )
-    {
-      // First Type
-      //
-      CardType  myCardTypeOneSpade(i, _CARD_TYPE_NAME_SPADE, _CARD_TYPE_LONG_NAME_SPADE);
-      //
-      CardManager::_myCardTypeList[ i ] = myCardTypeOneSpade;
-
-    }//End if
-    //
-    if ( i == _CARD_TYPE_INDEX_CLUB )
-    {
-      // Second Type
-      //
-      CardType  myCardTypeTwoClub(i, _CARD_TYPE_NAME_CLUB, _CARD_TYPE_LONG_NAME_CLUB);
-      //
-      CardManager::_myCardTypeList[ i ] = myCardTypeTwoClub;
-
-    }//End if
-    //
-    if ( i == _CARD_TYPE_INDEX_HEART )
-    {
-      // Third Type
-      //
-      CardType  myCardTypeThreeHeart(i, _CARD_TYPE_NAME_HEART, _CARD_TYPE_LONG_NAME_HEART);
-      //
-      CardManager::_myCardTypeList[ i ] = myCardTypeThreeHeart;
-
-    }//End if
-    //
-    if ( i == _CARD_TYPE_INDEX_DIAMOND )
-    {
-      // Fourth Type
-      //
-      CardType  myCardTypeFourthDiamond(i, _CARD_TYPE_NAME_DIAMOND, _CARD_TYPE_LONG_NAME_DIAMOND);
-      //
-      CardManager::_myCardTypeList[ i ] = myCardTypeFourthDiamond;
-
-    }//End if
-
-  }//End for
-  //
-  // * List of Cards (52)
-  //
-  // 3- Cards in the Game (All of them = 52):
-  //
-  string cardShortName 					= _CARD_2_NAME;
-  string cardLongNameSpanishSingular	= _CARD_2_LONG_NAME_ESP_SING;
-  string cardLongNameSpanishPlural		= _CARD_2_LONG_NAME_ESP_PLURAL;
-  //
-  int cardValue 		= _CARD_2_VALUE;
-  CardType* myCardType	= nullptr;	// = NULL;	// = CardManager::_myCardTypeList[cardIndex];
-  //
-  // Calculated Card INDEX: (from 0 to .. 13).
-  //
-  int cardIndex = 0;
-  //
-  for (int i = 0; i < _MAX_CARDS_COUNT; i++)
-  {
-
-    // Populate the Card List:
-    /////////////////////
+	// 1- Initialization of Array of HAND TYPES:   ARRAY [ HAND Value ] = 'NAME OF HAND IN A PRINTER FRIENDLY FASHION'
+	// 1- ENGLISH
 	//
-	// Card Index:
+	/////CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
 	//
-	cardIndex = (i % _MAX_CARDS_PER_TYPE_COUNT);
+	const string AUX_ARRAY_ENG[_TOTAL_HAND_TYPES] = { _HIGH_CARD_NAME_ENG, _ONE_PAIR_NAME_ENG, _TWO_PAIRS_NAME_ENG, _THREE_OF_A_KIND_NAME_ENG, _STRAIGHT_NAME_ENG, _FLUSH_NAME_ENG, _FULL_HOUSE_NAME_ENG, _FOUR_OF_A_KIND_NAME_ENG, _STRAIGHT_FLUSH_NAME_ENG, _ROYAL_FLUSH_NAME_ENG };
 	//
-    // 1- Types
-    //
-    // Type of Card
-    //
-    myCardType = (&_myCardTypeList[ i / _MAX_CARDS_PER_TYPE_COUNT ]);
-    //
-    // 2- Name & Value:
-    //
-    if ( cardIndex == (_CARD_2_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
+	// Copy the contents of the Const Array inside the Attribute of this Class:
+	//
+	CardManager::CopyArrayAToOtherArrayB(AUX_ARRAY_ENG, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ENGLISH);
+	//
+	//
+	// 2- SPANISH
+	//
+	//
+	/////CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
+	//
+	const string AUX_ARRAY_ESP[_TOTAL_HAND_TYPES] = { _HIGH_CARD_NAME_ESP, _ONE_PAIR_NAME_ESP, _TWO_PAIRS_NAME_ESP, _THREE_OF_A_KIND_NAME_ESP, _STRAIGHT_NAME_ESP, _FLUSH_NAME_ESP, _FULL_HOUSE_NAME_ESP, _FOUR_OF_A_KIND_NAME_ESP, _STRAIGHT_FLUSH_NAME_ESP, _ROYAL_FLUSH_NAME_ESP };
+	//
+	// Copy the contents of the Const Array inside the Attribute of this Class:
+	//
+	CardManager::CopyArrayAToOtherArrayB(AUX_ARRAY_ESP, CardManager::_ARRAY_OF_HAND_TYPES_PRINTER_FRIENDLY_NAMES_ESPANOL);
 
-      // Values, attributes:
-      //
-      cardShortName 				= _CARD_2_NAME;
-	  cardLongNameSpanishSingular	= _CARD_2_LONG_NAME_ESP_SING;
-	  cardLongNameSpanishPlural		= _CARD_2_LONG_NAME_ESP_PLURAL;
-	  //
-      cardValue = _CARD_2_VALUE;
 
-    }//End if
-    else if ( cardIndex == (_CARD_3_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
+	// (*this.) == this->
+	//
+	// 2- Players in the Game:
+	//
+	CardManager::_myPlayerList[_PLAYER_ONE_ARRAY_INDEX] = myPlayerOne;
+	//
+	CardManager::_myPlayerList[_PLAYER_TWO_ARRAY_INDEX] = myPlayerTwo;
+	//
+	//
+	// 2- Different Types of Cards
+	//...in the Game (All of them): C, S, H, D.
+	// We might avoid using a For-Loop this time, because there are only four (4) types: S Spades, Diamonds D, Clubs C & Hearts H.
+	//
+	for (int i = 0; i < _MAX_CARD_TYPE_COUNT; i++)
+	{
 
-		// Values, attributes:
+		// Fill in the Attributes:
+		// 1- Types
 		//
-		cardShortName 				= _CARD_3_NAME;
-		cardLongNameSpanishSingular	= _CARD_3_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_3_LONG_NAME_ESP_PLURAL;
+		if (i == _CARD_TYPE_INDEX_SPADE)
+		{
+			// First Type
+			//
+			CardType  myCardTypeOneSpade(i, _CARD_TYPE_NAME_SPADE, _CARD_TYPE_LONG_NAME_SPADE);
+			//
+			CardManager::_myCardTypeList[i] = myCardTypeOneSpade;
+
+		}//End if
 		//
-		cardValue = _CARD_3_VALUE;
+		if (i == _CARD_TYPE_INDEX_CLUB)
+		{
+			// Second Type
+			//
+			CardType  myCardTypeTwoClub(i, _CARD_TYPE_NAME_CLUB, _CARD_TYPE_LONG_NAME_CLUB);
+			//
+			CardManager::_myCardTypeList[i] = myCardTypeTwoClub;
 
-    }//End if
-    else if ( cardIndex == (_CARD_4_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
+		}//End if
 		//
-		cardShortName 				= _CARD_4_NAME;
-		cardLongNameSpanishSingular	= _CARD_4_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_4_LONG_NAME_ESP_PLURAL;
+		if (i == _CARD_TYPE_INDEX_HEART)
+		{
+			// Third Type
+			//
+			CardType  myCardTypeThreeHeart(i, _CARD_TYPE_NAME_HEART, _CARD_TYPE_LONG_NAME_HEART);
+			//
+			CardManager::_myCardTypeList[i] = myCardTypeThreeHeart;
+
+		}//End if
 		//
-		cardValue = _CARD_4_VALUE;
+		if (i == _CARD_TYPE_INDEX_DIAMOND)
+		{
+			// Fourth Type
+			//
+			CardType  myCardTypeFourthDiamond(i, _CARD_TYPE_NAME_DIAMOND, _CARD_TYPE_LONG_NAME_DIAMOND);
+			//
+			CardManager::_myCardTypeList[i] = myCardTypeFourthDiamond;
 
-    }//End if
-    else if ( cardIndex == (_CARD_5_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
+		}//End if
 
-		// Values, attributes:
+	}//End for
+	//
+	// * List of Cards (52)
+	//
+	// 3- Cards in the Game (All of them = 52):
+	//
+	string cardShortName = _CARD_2_NAME;
+	string cardLongNameSpanishSingular = _CARD_2_LONG_NAME_ESP_SING;
+	string cardLongNameSpanishPlural = _CARD_2_LONG_NAME_ESP_PLURAL;
+	//
+	int cardValue = _CARD_2_VALUE;
+	CardType* myCardType = nullptr;	// = NULL;	// = CardManager::_myCardTypeList[cardIndex];
+	//
+	// Calculated Card INDEX: (from 0 to .. 13).
+	//
+	int cardIndex = 0;
+	//
+	for (int i = 0; i < _MAX_CARDS_COUNT; i++)
+	{
+
+		// Populate the Card List:
+		/////////////////////
 		//
-		cardShortName 				= _CARD_5_NAME;
-		cardLongNameSpanishSingular	= _CARD_5_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_5_LONG_NAME_ESP_PLURAL;
+		// Card Index:
 		//
-		cardValue = _CARD_5_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_6_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
+		cardIndex = (i % _MAX_CARDS_PER_TYPE_COUNT);
 		//
-		cardShortName 				= _CARD_6_NAME;
-		cardLongNameSpanishSingular	= _CARD_6_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_6_LONG_NAME_ESP_PLURAL;
+		// 1- Types
 		//
-		cardValue = _CARD_6_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_7_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_7_NAME;
-		cardLongNameSpanishSingular	= _CARD_7_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_7_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_7_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_8_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_8_NAME;
-		cardLongNameSpanishSingular	= _CARD_8_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_8_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_8_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_9_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_9_NAME;
-		cardLongNameSpanishSingular	= _CARD_9_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_9_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_9_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_10_T_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_10_T_NAME;
-		cardLongNameSpanishSingular	= _CARD_10_T_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_10_T_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_10_T_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_J_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_J_NAME;
-		cardLongNameSpanishSingular	= _CARD_J_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_J_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_J_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_Q_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_Q_NAME;
-		cardLongNameSpanishSingular	= _CARD_Q_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_Q_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_Q_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_K_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_K_NAME;
-		cardLongNameSpanishSingular	= _CARD_K_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_K_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_K_VALUE;
-
-    }//End if
-    else if ( cardIndex == (_CARD_A_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER) )
-    {
-
-		// Values, attributes:
-		//
-		cardShortName 				= _CARD_A_NAME;
-		cardLongNameSpanishSingular	= _CARD_A_LONG_NAME_ESP_SING;
-		cardLongNameSpanishPlural	= _CARD_A_LONG_NAME_ESP_PLURAL;
-		//
-		cardValue 					= _CARD_A_VALUE;
-
-    }//End if
-    else    // Exception, That is not a Card!
-    {
-
 		// Type of Card
 		//
-		myCardType = nullptr;	  //	NULL;
+		myCardType = (&_myCardTypeList[i / _MAX_CARDS_PER_TYPE_COUNT]);
 		//
-		// Values, attributes:
+		// 2- Name & Value:
 		//
-		cardShortName 				= "";
-		cardLongNameSpanishSingular	= "";
-		cardLongNameSpanishPlural	= "";
+		if (cardIndex == (_CARD_2_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_2_NAME;
+			cardLongNameSpanishSingular = _CARD_2_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_2_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_2_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_3_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_3_NAME;
+			cardLongNameSpanishSingular = _CARD_3_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_3_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_3_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_4_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_4_NAME;
+			cardLongNameSpanishSingular = _CARD_4_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_4_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_4_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_5_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_5_NAME;
+			cardLongNameSpanishSingular = _CARD_5_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_5_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_5_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_6_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_6_NAME;
+			cardLongNameSpanishSingular = _CARD_6_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_6_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_6_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_7_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_7_NAME;
+			cardLongNameSpanishSingular = _CARD_7_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_7_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_7_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_8_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_8_NAME;
+			cardLongNameSpanishSingular = _CARD_8_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_8_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_8_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_9_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_9_NAME;
+			cardLongNameSpanishSingular = _CARD_9_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_9_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_9_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_10_T_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_10_T_NAME;
+			cardLongNameSpanishSingular = _CARD_10_T_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_10_T_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_10_T_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_J_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_J_NAME;
+			cardLongNameSpanishSingular = _CARD_J_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_J_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_J_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_Q_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_Q_NAME;
+			cardLongNameSpanishSingular = _CARD_Q_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_Q_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_Q_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_K_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_K_NAME;
+			cardLongNameSpanishSingular = _CARD_K_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_K_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_K_VALUE;
+
+		}//End if
+		else if (cardIndex == (_CARD_A_VALUE - _CARD_2_INDEX_TO_ARRAY_CONVERTER))
+		{
+
+			// Values, attributes:
+			//
+			cardShortName = _CARD_A_NAME;
+			cardLongNameSpanishSingular = _CARD_A_LONG_NAME_ESP_SING;
+			cardLongNameSpanishPlural = _CARD_A_LONG_NAME_ESP_PLURAL;
+			//
+			cardValue = _CARD_A_VALUE;
+
+		}//End if
+		else    // Exception, That is not a Card!
+		{
+
+			// Type of Card
+			//
+			myCardType = nullptr;	  //	NULL;
+			//
+			// Values, attributes:
+			//
+			cardShortName = "";
+			cardLongNameSpanishSingular = "";
+			cardLongNameSpanishPlural = "";
+			//
+			cardValue = 0;
+
+
+			// Write the Exception:
+			//
+			std::cout << "\n\nException, [ cardIndex = " << cardIndex << " ] is not Valid 'Value' or 'Number' for a Card!" << std::endl;
+
+		}//End else of if
+		/////////////////////
+
+		// IN THE END: WE ASSIGN the value:
 		//
-		cardValue = 0;
+		Card  myCard(i, cardShortName, cardLongNameSpanishSingular, cardLongNameSpanishPlural, cardValue, myCardType);
+		//
+		CardManager::_myCardList[i] = myCard;
 
+	}//End for
 
-      // Write the Exception:
-      //
-      std::cout << "\n\nException, [ cardIndex = " << cardIndex << " ] is not Valid 'Value' or 'Number' for a Card!" << std::endl;
-
-    }//End if
-    /////////////////////
-
-    // IN THE END: WE ASSIGN the value:
-    //
-    //CardManager::_myCardList[ cardIndex ] = new myCard( i, name, value, myCardType, nullptr);
-    //
-    Card  myCard( i, cardShortName, cardLongNameSpanishSingular, cardLongNameSpanishPlural, cardValue, myCardType );
-
-    //Card(const int &id, const string &shortName, const string &longNameSpanishSingular, const string &longNameSpanishPlural, const int &value, CardType* myCardType)
-    //
-    CardManager::_myCardList[ i ] = myCard;
-
-  }//End for
-
-  return;
+	return;
 
 }//End Method
 
@@ -511,7 +507,7 @@ void CardManager::ConstructPlayerCardCardType(Player &myPlayer, const int &cardI
  * 	2-	OUTPUT:	print out to a file, in the desired destination: 'const std::string &fileName'.
  */
 void CardManager::PlayTheGameOutputToFileVersion
-(const std::vector< std::string > /*std::string*/ &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName)
+(const std::vector< std::string > &inputLines, const int arraySize, Player &myPlayerP1, Player &myPlayerP2, const std::string &fileName)
 {
 
 	// Flag to say we want OUTPUT to be in a File:
@@ -2277,20 +2273,6 @@ void CardManager::SetFinalOutputOfLine2( Player &myP1, Player &myP2 )
 	}//End if ( (! myP1PtrCard) && (! myP2PtrCard) )
 	else
 	{
-
-//		// Compare values:
-//		//
-//		if ( ( myP1PtrHighestDifferentCard->GetValue() > myP2PtrHighestDifferentCard->GetValue() ) )
-//		{
-//
-//			// P1 WON
-//			//
-//		}//End if ( ( myP1PtrHighestDifferentCard->GetValue() > myP2PtrHighestDifferentCard->GetValue() ) )
-//		else
-//		{
-//			// P2 WON
-//			//
-//		}//End else
 
 		//	Set the OUTPUT of LINE 2... ['Máxima Carta' ' ' 'NOMBRE_DE_CARTA']
 		//	P1:
@@ -4217,12 +4199,14 @@ const int CardManager::CountHowManyCardsAreThereWithThisValue( Card * (* myCards
 
 /**
  * Gets a 'Card' from the CATALOG LIST, given its VALUE and ITS associated CardType SHORT NAME.
- * For example: CARD VALUE = 9 ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns => 9S
+ *
+ * For example: CARD VALUE = 9 ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns
+ *		=> Card Object that corresponds to: 9 of SPADES
  */
 Card* CardManager::GetCard( const int &cardValue, const string &cardTypeShortName )
 {
 
-	std::cout << "\n**********************************\n -> -> (INICIANDO) -> INICIA: CardManager::GetCard( const int &cardValue, const string &cardTypeShortName )\n"<< std::flush;
+	/////& std::cout << "\n**********************************\n -> -> (INICIANDO) -> INICIA: CardManager::GetCard( const int &cardValue, const string &cardTypeShortName )\n"<< std::flush;
 
 	for (int i = 0; i < _MAX_CARDS_COUNT; i++ )
 	{
@@ -4252,9 +4236,9 @@ Card* CardManager::GetCard( const int &cardValue, const string &cardTypeShortNam
 
 	}//End for
 
-	std::cout << "\n**********************************\n -> -> (TERMINANDO) -> TERMINÓ: CardManager::GetCard( const int &cardValue, const string &cardTypeShortName )\n"<< std::flush;
+	/////& std::cout << "\n**********************************\n -> -> (TERMINANDO) -> TERMINÓ: CardManager::GetCard( const int &cardValue, const string &cardTypeShortName )\n"<< std::flush;
 
-	//
+
 	// If NOT FOUND: return nullptr-NULL
 	//
 	return nullptr;	 //	NULL;
@@ -4267,7 +4251,8 @@ Card* CardManager::GetCard( const int &cardValue, const string &cardTypeShortNam
  * Gets a 'Card' from the CATALOG LIST, given its CARD SHORT NAME
  * ...and ITS associated CardType SHORT NAME.
  *
-    * For example: CARD SHORT NAME = "9" ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns => 9S
+ * For example: CARD SHORT NAME = "9" ; CARD TYPE = SPADE (OPTIONS: { S , C , H , D }) => returns
+ *		=> Card Object that corresponds to: 9 of SPADES
  */
 Card* CardManager::GetCard( const string &cardShortName, const string &cardTypeShortName )
 {
@@ -4302,9 +4287,9 @@ Card* CardManager::GetCard( const string &cardShortName, const string &cardTypeS
 
 	}//End for
 
-	std::cout << "\n**********************************\n -> -> (TERMINANDO) -> TERMINÓ: CardManager::GetCard( const string &cardShortName, const string &cardTypeShortName )\n"<< std::flush;
+	/////& std::cout << "\n**********************************\n -> -> (TERMINANDO) -> TERMINÓ: CardManager::GetCard( const string &cardShortName, const string &cardTypeShortName )\n"<< std::flush;
 
-	//
+
 	// If NOT FOUND: return nullptr-NULL
 	//
 	return nullptr;	 //	NULL
@@ -4565,39 +4550,6 @@ void CardManager::PairSortObjects(int(&a)[arrayLength], Card* (&myArrayOfCard)[a
 	}//End else
 
 } //End Method
-
-
-///*
-// * Versión v-3.0 usando: OBJETOS: Pair <Card, int>.
-// *
-// * Driver function
-//*/
-//template<std::size_t arrayLength>
-//void mainVersionObjetosEInt( Card* (&myArrayOfCard) [ arrayLength ], int (&a)[ arrayLength ] )
-//{
-//
-//    // Function calling
-//    PairSortObjects(a, myArrayOfCard, false);
-//
-//
-//
-//    for (int i = 0; i < arrayLength; i++)
-//        cout << a[i] << " ";
-//    cout << endl;
-//
-//    for (int i = 0; i < arrayLength; i++)
-//        cout << myArrayOfCard[i] << " ";
-//
-//    cout << endl;
-//
-//    // Names of the Cards:
-//    //
-//    for (int i = 0; i < arrayLength; i++)
-//        cout << myArrayOfCard[i]->GetName() << " ";
-//
-//    cout << endl;
-//
-//}//End Method
 
 
 /*
