@@ -16,16 +16,16 @@ Hay 13 cartas por cada tipo, dando un total de 52 cartas, las cartas ordenadas d
 
 Una mano consiste de 5 cartas. Existen 10 clases de manos, ordenadas de menor a mayor son:
 
-	1-	HIGH CARD: El valor de la carta de mayor valor
-	2-	ONE PAIR: Dos cartas del mismo valor (un par)
+	1-	HIGH CARD: El valor de la carta de mayor valor.
+	2-	ONE PAIR: Dos cartas del mismo valor (un par).
 	3-	TWO PAIRS: Dos pares diferentes.
-	4-	THREE OF A KIND: Tres cartas del mismo valor
-	5-	STRAIGHT: Todas las cartas son valores consecutivos
-	6-	FLUSH: Todas las cartas son del mismo tipo
-	7-	FULL HOUSE: Tres cartas del mismo valor y un par
-	8-	FOUR OF A KIND: Cuatro cartas del mismo valor
-	9-	STRAIGHT FLUSH: Todas las cartas son valores consecutivos del mismo tipo
-	10-	ROYAL FLUSH: 10, Jack, Queen, King, Ace, del mismo tipo
+	4-	THREE OF A KIND: Tres cartas del mismo valor.
+	5-	STRAIGHT: Todas las cartas son valores consecutivos.
+	6-	FLUSH: Todas las cartas son del mismo tipo.
+	7-	FULL HOUSE: Tres cartas del mismo valor y un par.
+	8-	FOUR OF A KIND: Cuatro cartas del mismo valor.
+	9-	STRAIGHT FLUSH: Todas las cartas son valores consecutivos del mismo tipo.
+	10-	ROYAL FLUSH: 10, Jack, Queen, King, Ace, del mismo tipo.
 
 
 <p align="center">
@@ -50,19 +50,22 @@ si las cartas de mayor valor son iguales, las cartas que le siguen de mayor valo
 
 Ejemplos:
 
+<pre>
 Mano        Jugador 1       Jugador 2           Ganador
 
 1       5H 5C 6S 7S KD      2C 3S 8S 8D TD      Jugador 2
-		Par de cincos       Par de ochos
+        Par de cincos       Par de ochos
 2       5D 8C 9S JS AC      2C 5C 7D 8S QH      Jugador 1
-		HIGH CARD Ace       HIGH CARD Queen
+        HIGH CARD Ace       HIGH CARD Queen
 3       2D 9C AS AH AC      3D 6D 7D TD QD      Jugador 2
-		Tres Aces           FLUSH de diamantes
+        Tres Aces           FLUSH de diamantes
 4       4D 6S 9H QH QC      3D 6D 7H QD QS      Jugador 1
-		Par de reinas       Par de reinas
-		Máxima carta 9      Máxima carta 7
+        Par de reinas       Par de reinas
+        Máxima carta 9      Máxima carta 7
 5       2H 2D 4C 4D 4S      3C 3D 3S 9S 9D      Jugador 1
-		Full House de 4     Full House de 3
+        Full House de 4     Full House de 3
+</pre>
+
 
 Verifica tu código con el archivo de jugadas: poker.txt, el cual contiene 1000 manos aleatorias
 entregadas a dos jugadores. Cada línea del archivo contiene 10 cartas (separadas por un solo espacio):
@@ -72,12 +75,6 @@ De las 1000 manos en este archivo el jugador 1 gana 376 manos.
 ##### Crea todas las funciones necesarias para resolver este problema de una modo genérico (por ejemplo: con otro archivo de jugadas).
 ##### Asume que todas las manos son válidas, sin caracteres inválidos ni cartas repetidas, que las manos no están ordenadas y que por cada línea existe un claro vencedor.
 
-****************************************************************
-
-(6 PUNTOS)
-
-*******************************************************************************
-Source Code By:	 Alejandro E. Almarza Martín
 *******************************************************************************
 
 #### Developer Notes:
@@ -113,6 +110,12 @@ Source Code By:	 Alejandro E. Almarza Martín
 
 #### 2- [Bamtang Games' current Game Programmer Exam, as reference](https://www.bamtang.com/careers/game-programmer).
 
+*******************************************************************************
+
+(6 PUNTOS)
+
+*******************************************************************************
+Source Code By:	 Alejandro E. Almarza Martín
 *******************************************************************************
 
 MIT License
