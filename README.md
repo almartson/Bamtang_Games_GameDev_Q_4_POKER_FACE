@@ -32,11 +32,11 @@ Una mano consiste de 5 cartas. Existen 10 clases de manos, ordenadas de menor a 
    
    <img src="ReadmeImgs/poker-hand-rankings.png?raw=true">
    
-   <font size="2">
+   <font size="1">
       <p align="center">
          <figcaption">
-            <p>Poker Hand Hierarchy</p>
-            <p>Source: https://www.cardschat.com/poker-hands/</p>
+            <p align="center">Poker Hand Hierarchy</p>
+            <p align="center">Source: https://www.cardschat.com/poker-hands/</p>
          </figcaption>
       </p>
    </font>
