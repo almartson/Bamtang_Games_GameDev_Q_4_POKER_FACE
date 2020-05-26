@@ -6,93 +6,108 @@ Small demo (written in C++) that implements the logic of a poker game, (particul
 
 [Spanish original Question:]
 
-###### Implementar una función que dibuje un tablero de ajedrez con la posición de las piezas pasada como parámetro.
+En esta versión simplificada del juego de Poker, existen 4 tipos de cartas (abreviaciones entre paréntesis):
 
-El parámetro a pasar será una cadena compuesta solamente de los siguientes caracteres:
-p, r, b, n, q, k, /, 1, 2, 3, 4, 5, 6, 7, 8
+##### Tréboles (C), Espadas (S), Corazones (H) y Diamantes (D).
 
-Donde cada pieza es representada por una carácter, siendo las negras caracteres en minúscula y las blancas caracteres en mayúsculas. 
-Los caracteres son:
-p = peón
-r = torre
-b = alfil
-n = caballo
-q = reina
-k = rey
+Hay 13 cartas por cada tipo, dando un total de 52 cartas, las cartas ordenadas de menor valor a mayor valor son:
 
-Para separar las filas dentro de la cadena se emplea el carácter "/", existen exactamente 8 filas en la cadena.
-Para indicar espacios vacíos en la fila se colocan los números del 1 al 8.
-Por ejemplo la fila "4p3" esta compuesta por 4 celdas vacías, un peón y finalmente tres celdas vacías.
-El número de celdas por fila debe ser siempre 8.
+##### 2, 3, 4, 5, 6, 7, 8, 9, 10 (T), Jack (J), Reina (Q), Rey (K), Ace (A).
 
-##### Así por ejemplo la posición inicial del tablero de ajedrez se representa así:
-##### "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+Una mano consiste de 5 cartas. Existen 10 clases de manos, ordenadas de menor a mayor son:
 
-#### Implementar la función: drawChessBoard( initPosition )
+	1-	HIGH CARD: El valor de la carta de mayor valor
+	2-	ONE PAIR: Dos cartas del mismo valor (un par)
+	3-	TWO PAIRS: Dos pares diferentes.
+	4-	THREE OF A KIND: Tres cartas del mismo valor
+	5-	STRAIGHT: Todas las cartas son valores consecutivos
+	6-	FLUSH: Todas las cartas son del mismo tipo
+	7-	FULL HOUSE: Tres cartas del mismo valor y un par
+	8-	FOUR OF A KIND: Cuatro cartas del mismo valor
+	9-	STRAIGHT FLUSH: Todas las cartas son valores consecutivos del mismo tipo
+	10-	ROYAL FLUSH: 10, Jack, Queen, King, Ace, del mismo tipo
 
-### NOTAS:
-
-* Usa cualquier imagen para las piezas así como la librería gráfica que prefieras, pero debes cargar y mostrar imágenes BMP, PNG o JPG en tu programa.
-* No se considerarán válidas las soluciones que solo usen la consola de texto.
-* Verifica que las imágenes estén ubicadas correctamente para que no hayan problemas al ejecutar tu proyecto.
 
 <p align="center">
    
-   <img src="ReadmeImgs/ChessBoard_1_1.png?raw=true">
+   <img src="ReadmeImgs/poker-hand-rankings.png?raw=true">
    
    <font size="2">
       <p align="center">
-         <figcaption"> Chess Board with Input: <strong>7q/2rP4/2Pn4/P2RP3/p2n4/b1K5/2pPrQ2/3k2N1</strong>
+         <figcaption"> Poker Hand Hierarchy
          </figcaption>
       </p>
    </font>
 </p>
 
-*******************************************************************************
 
-### (5 PUNTOS)
+Si dos jugadores tienen manos de la misma clase entonces la mano que esta conformada por cartas de mayor valor gana;
+por ejemplo un par de ochos le gana a un par de cincos (ver ejemplo 1 más abajo).
+
+Si aun así hay empate, por ejemplo, ambos jugadores tiene un par de reinas, entonces las cartas de mayor valor de cada mano
+son comparadas (ver ejemplo 4 de abajo);
+si las cartas de mayor valor son iguales, las cartas que le siguen de mayor valor son comparadas, y así sucesivamente.
+
+Ejemplos:
+
+Mano        Jugador 1       Jugador 2           Ganador
+
+1       5H 5C 6S 7S KD      2C 3S 8S 8D TD      Jugador 2
+		Par de cincos       Par de ochos
+2       5D 8C 9S JS AC      2C 5C 7D 8S QH      Jugador 1
+		HIGH CARD Ace       HIGH CARD Queen
+3       2D 9C AS AH AC      3D 6D 7D TD QD      Jugador 2
+		Tres Aces           FLUSH de diamantes
+4       4D 6S 9H QH QC      3D 6D 7H QD QS      Jugador 1
+		Par de reinas       Par de reinas
+		Máxima carta 9      Máxima carta 7
+5       2H 2D 4C 4D 4S      3C 3D 3S 9S 9D      Jugador 1
+		Full House de 4     Full House de 3
+
+Verifica tu código con el archivo de jugadas: poker.txt, el cual contiene 1000 manos aleatorias
+entregadas a dos jugadores. Cada línea del archivo contiene 10 cartas (separadas por un solo espacio):
+ las primeras cinco son las cartas del jugador 1 y el resto son las del jugador 2.
+De las 1000 manos en este archivo el jugador 1 gana 376 manos.
+
+##### Crea todas las funciones necesarias para resolver este problema de una modo genérico (por ejemplo: con otro archivo de jugadas).
+##### Asume que todas las manos son válidas, sin caracteres inválidos ni cartas repetidas, que las manos no están ordenadas y que por cada línea existe un claro vencedor.
+
+****************************************************************
+
+(6 PUNTOS)
 
 *******************************************************************************
 Source Code By:	 Alejandro E. Almarza Martín
 *******************************************************************************
 
-## Requirements: 
+#### Developer Notes:
 
-### A)	For Executing the program:
+#### 1- This source code was written in <strong> Visual Studio Community 2017 </strong> (IDE for C++), to build an executable file. 
+#### It was configured to build the executable with ISO C++14 Language Standard (/std:c++14) options.
 
-1-	Download 'SFML-2.3.2 - 32 bit' for Visual Studio C++ 2010, from:	https://www.sfml-dev.org/files/SFML-2.3.2-windows-vc10-32-bit.zip
-(Main Download Page: https://www.sfml-dev.org/download/sfml/2.3.2/ )
-   
-2-	Copy the '...\bin''s Folder content.
+<p align="center">
 
-3-	Look for a folder called 'Release'. Check if it has some SFML files, such as: sfml-graphics-2.dll, sfml-system-2.dll, sfml-window-2.dll, etc. 
+   <img src="ReadmeImgs/1_e_ISO_LANGUAGE_STANDARD_CPP14_.png?raw=true">
 
-     In case those are missing:
+   <font size="2">
+      <p align="center">
+         <figcaption"> ISO C++14 Language Standard (/std:c++14) option
+         </figcaption>
+      </p>
+   </font>
+</p>
 
-     Paste all the files copied in step (2) into that folder.
+#### 2- This game is about the 'Texas Poker' variant.
 
-4-	Have all images in the same Folder as in step (3).
+#### 3- The INPUT and OUTPUT Text Files (.txt) will be read and written in the same location (path) where the (.exe) executable file is located. 
 
-5-  Look for the .exe file and run it.
+#### 4- The INPUT text file used is a global variable, which is called in the code: '_INPUT_FILE_SHORT_NAME'; and the name of the Text File itself is: "poker.txt".
 
-
-### B)	For Developing (Windows 7, VS C++ 2010):
-
-1-	Install & Configure Visual Studio C++ 2010.
-   
-2-	Follow Step (A - (1)): Download 'SFML-2.3.2 - 32 bit' for Visual Studio C++ 2010:  https://www.sfml-dev.org/download/sfml/2.3.2/
-
-3-	Configure Visual Studio C++ 2010 to Develop C++ Games using SFML >= 2.0 (Read: (Steps in:  https://www.sfml-dev.org/tutorials/2.3/start-vc.php ) )
-
-4-	Decide: [Dynamic Linked Libraries (DLL) vs. Static/Shared Libraries], and set the IDE Configuration. (Steps in:  https://www.sfml-dev.org/tutorials/2.3/start-vc.php )
-
-5-	Make sure you add to the solution the main.cpp Script, which is in the 'source' folder.
-
-6-  Happy Coding.
+#### 5- The OUTPUT text file used is a global variable, which is called in the code: '_OUTPUT_FILE_SHORT_NAME'; and the name of the Text File itself is: "pokerOutput.txt".
 
 *******************************************************************************
 
-#### Notes:
+#### General Notes:
 
 #### 1- [Game Programmer Exam Questions (originally published in 2018)](README_QuestionDetails/BAMTANG_ExamCpp_2018.pdf).
 
