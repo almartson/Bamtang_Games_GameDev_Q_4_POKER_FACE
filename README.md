@@ -78,6 +78,8 @@ De las 1000 manos en este archivo, el jugador 1 gana 376 manos.
 ##### Asume que todas las manos son válidas, sin caracteres inválidos ni cartas repetidas, que las manos no están ordenadas y que por cada línea existe un claro vencedor.
 
 *******************************************************************************
+(6 PUNTOS)
+*******************************************************************************
 
 #### Developer Notes:
 
@@ -111,10 +113,6 @@ De las 1000 manos en este archivo, el jugador 1 gana 376 manos.
 #### 1- [Game Programmer Exam Questions (originally published in 2018)](README_QuestionDetails/BAMTANG_ExamCpp_2018.pdf).
 
 #### 2- [Bamtang Games' current Game Programmer Exam, as reference](https://www.bamtang.com/careers/game-programmer).
-
-*******************************************************************************
-
-(6 PUNTOS)
 
 *******************************************************************************
 Source Code By:	 Alejandro E. Almarza Martín
