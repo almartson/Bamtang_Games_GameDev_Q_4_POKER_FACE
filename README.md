@@ -34,7 +34,9 @@ Una mano consiste de 5 cartas. Existen 10 clases de manos, ordenadas de menor a 
    
    <font size="2">
       <p align="center">
-         <figcaption"> Poker Hand Hierarchy
+         <figcaption">
+            <p>Poker Hand Hierarchy</p>
+            <p>Source: https://www.cardschat.com/poker-hands/</p>
          </figcaption>
       </p>
    </font>
@@ -70,7 +72,7 @@ Mano        Jugador 1       Jugador 2           Ganador
 Verifica tu código con el archivo de jugadas: poker.txt, el cual contiene 1000 manos aleatorias
 entregadas a dos jugadores. Cada línea del archivo contiene 10 cartas (separadas por un solo espacio):
  las primeras cinco son las cartas del jugador 1 y el resto son las del jugador 2.
-De las 1000 manos en este archivo el jugador 1 gana 376 manos.
+De las 1000 manos en este archivo, el jugador 1 gana 376 manos.
 
 ##### Crea todas las funciones necesarias para resolver este problema de una modo genérico (por ejemplo: con otro archivo de jugadas).
 ##### Asume que todas las manos son válidas, sin caracteres inválidos ni cartas repetidas, que las manos no están ordenadas y que por cada línea existe un claro vencedor.
