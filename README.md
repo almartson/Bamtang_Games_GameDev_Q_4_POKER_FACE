@@ -112,7 +112,7 @@ De las 1000 manos en este archivo, el jugador 1 gana 376 manos.
 
 #### 1- [Game Programmer Exam Questions (originally published in 2018)](README_QuestionDetails/BAMTANG_ExamCpp_2018.pdf).
 
-#### 2- [Bamtang Games' current Game Programmer Exam, as reference](https://www.bamtang.com/jobs/game-programmer).
+#### 2- [Bamtang Games' current Game Programmer Exam, as reference (it might be updated, and therefore, different)](https://www.bamtang.com/jobs/game-programmer).
 
 *******************************************************************************
 Source Code By:	 Alejandro E. Almarza Martín
